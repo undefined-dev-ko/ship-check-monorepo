@@ -1,0 +1,8 @@
+
+TZ=UTC
+
+DB_USERNAME=root
+DB_PASSWORD=test1234
+DB_DATABASE=shipcheck
+
+DB_PORT=3306
