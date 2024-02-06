@@ -9,7 +9,7 @@ export type JwtPayload = {
 };
 
 export class AuthUtil {
-  private static secret: string = randomUUID();
+  private static secret: string = process.env.SECRET || randomUUID();
   constructor() {}
 
   public createToken(
