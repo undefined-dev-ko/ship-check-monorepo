@@ -5,6 +5,8 @@ import { DocumentBuilder, SwaggerModule } from "@nestjs/swagger";
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
+  app.enableCors();
+
   // Swagger 설정
   const config = new DocumentBuilder()
     .setTitle("Ship-Check 쉽다 출석부 API")
@@ -15,6 +17,6 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup("api/docs", app, document);
 
-  await app.listen(3000);
+  await app.listen(8080);
 }
 bootstrap();
