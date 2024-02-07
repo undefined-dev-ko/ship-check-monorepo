@@ -2,7 +2,7 @@ import { ApiProperty } from "@nestjs/swagger";
 
 export class CreateAccessTokenByGoogleRequest {
   @ApiProperty()
-  token: string;
+  authorizationCode: string;
 }
 export class TokenPair {
   @ApiProperty()

@@ -30,7 +30,9 @@ export class AuthController {
   async createAccessTokenByGoogleToken(
     @Body() payload: CreateAccessTokenByGoogleRequest
   ): Promise<TokenPair> {
-    return this.authService.createAccessTokenByGoogleToken(payload.token);
+    return this.authService.createAccessTokenByGoogleAuthorizationCode(
+      payload.authorizationCode
+    );
   }
 
   @Post("refresh")

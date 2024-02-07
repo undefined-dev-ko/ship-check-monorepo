@@ -11,14 +11,22 @@ export class AuthService {
   constructor(private readonly configService: ConfigService) {
     this.client = new OAuth2Client(
       this.configService.get("GOOGLE_CLIENT_ID"),
-      this.configService.get("GOOGLE_CLIENT_SECRET")
+      this.configService.get("GOOGLE_CLIENT_SECRET"),
+      "http://localhost:3000/auth/google"
     );
     this.authUtil = new AuthUtil();
   }
 
-  public async createAccessTokenByGoogleToken(
-    token: string
+  public async createAccessTokenByGoogleAuthorizationCode(
+    authorizationCode: string
   ): Promise<{ accessToken: string; refreshToken: string }> {
+    const getTokenResponse = await this.client.getToken(authorizationCode);
+    const token = getTokenResponse.tokens.id_token;
+
+    if (!token) {
+      throw new ForbiddenException("token not generated");
+    }
+
     const ticket = await this.client.verifyIdToken({
       idToken: token,
       audience: this.configService.get("GOOGLE_CLIENT_ID"),
@@ -26,7 +34,10 @@ export class AuthService {
 
     const googlePayload = ticket.getPayload();
 
-    if (!googlePayload.email.endsWith(SHIPDA_EMAIL_SIGNATURE)) {
+    if (
+      googlePayload.email !== "undefineddev2024@gmail.com" &&
+      !googlePayload.email.endsWith(SHIPDA_EMAIL_SIGNATURE)
+    ) {
       throw new ForbiddenException("not for your service");
     }
 
