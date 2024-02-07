@@ -1,8 +1,9 @@
-import { Injectable } from "@nestjs/common";
+import { ForbiddenException, Injectable } from "@nestjs/common";
 import { ConfigService } from "@nestjs/config";
 import { OAuth2Client } from "google-auth-library";
 import { AuthUtil } from "../common/authUtil";
 
+const SHIPDA_EMAIL_SIGNATURE = "@ship-da.com";
 @Injectable()
 export class AuthService {
   private client: OAuth2Client;
@@ -24,6 +25,10 @@ export class AuthService {
     });
 
     const googlePayload = ticket.getPayload();
+
+    if (!googlePayload.email.endsWith(SHIPDA_EMAIL_SIGNATURE)) {
+      throw new ForbiddenException("not for your service");
+    }
 
     return this.authUtil.createToken({
       email: googlePayload.email,
