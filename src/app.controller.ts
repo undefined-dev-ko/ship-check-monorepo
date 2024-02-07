@@ -1,7 +1,7 @@
 import { AppService } from "./app.service";
 import { Controller, Get, UseGuards } from "@nestjs/common";
 import { AuthGuard, Public } from "./common/authGuard";
-import { ApiBearerAuth } from "@nestjs/swagger";
+import { ApiBearerAuth, ApiOperation } from "@nestjs/swagger";
 
 @Controller()
 @ApiBearerAuth()
@@ -11,11 +11,13 @@ export class AppController {
 
   @Get()
   @Public()
+  @ApiOperation({ summary: "앱 생존신고용 API" })
   getHello(): string {
     return this.appService.getHello();
   }
 
   @Get("auth")
+  @ApiOperation({ summary: "JWT 토큰 확인용 API" })
   checkauth(): string {
     return "ok";
   }
