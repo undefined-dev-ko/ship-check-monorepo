@@ -1,3 +1,6 @@
+[![ship-check-be-action](https://github.com/undefined-dev-ko/ship-check-be/actions/workflows/action.yaml/badge.svg)](https://github.com/undefined-dev-ko/ship-check-be/actions/workflows/action.yaml)
+
+
 ## Swagger
 
 ```bash
