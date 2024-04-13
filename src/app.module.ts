@@ -5,9 +5,10 @@ import { ReservationController } from "./reservation/reservation.controller";
 import { AuthModule } from "./auth/auth.module";
 import { DatabaseModule } from "./database/database.module";
 import { ConfigModule } from "./config/config.module";
+import { UserModule } from "./user/user.module";
 
 @Module({
-  imports: [ConfigModule, DatabaseModule, AuthModule],
+  imports: [ConfigModule, DatabaseModule, AuthModule, UserModule],
   controllers: [AppController, ReservationController],
   providers: [AppService],
 })

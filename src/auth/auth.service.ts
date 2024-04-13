@@ -1,18 +1,28 @@
 import { ForbiddenException, Injectable } from "@nestjs/common";
-import { ConfigService } from "@nestjs/config";
 import { OAuth2Client } from "google-auth-library";
 import { AuthUtil } from "../common/authUtil";
+import { ConfigService } from "src/config/config.service";
+import { UserService } from "src/user/user.service";
 
 const SHIPDA_EMAIL_SIGNATURE = "@ship-da.com";
 @Injectable()
 export class AuthService {
   private client: OAuth2Client;
   private authUtil: AuthUtil;
-  constructor(private readonly configService: ConfigService) {
+  private googleAuthConfig: {
+    clientId: any;
+    clientSecret: any;
+    redirectUri: any;
+  };
+  constructor(
+    private readonly configService: ConfigService,
+    private readonly userService: UserService
+  ) {
+    this.googleAuthConfig = this.configService.getGoogleAuthConfig();
     this.client = new OAuth2Client(
-      this.configService.get("GOOGLE_CLIENT_ID"),
-      this.configService.get("GOOGLE_CLIENT_SECRET"),
-      "http://localhost:3000/auth/google"
+      this.googleAuthConfig.clientId,
+      this.googleAuthConfig.clientSecret,
+      this.googleAuthConfig.redirectUri
     );
     this.authUtil = new AuthUtil();
   }
@@ -29,7 +39,7 @@ export class AuthService {
 
     const ticket = await this.client.verifyIdToken({
       idToken: token,
-      audience: this.configService.get("GOOGLE_CLIENT_ID"),
+      audience: this.googleAuthConfig.clientId,
     });
 
     const googlePayload = ticket.getPayload();
@@ -41,10 +51,19 @@ export class AuthService {
       throw new ForbiddenException("not for your service");
     }
 
+    const user =
+      (await this.userService.getOneUserByEmail(googlePayload.email)) ||
+      (await this.userService.createUser({
+        email: googlePayload.email,
+        team: "etc",
+      }));
+
     return this.authUtil.createToken({
+      id: user.id,
       email: googlePayload.email,
       name: googlePayload.name,
-      picture: googlePayload.picture,
+      photo: googlePayload.picture,
+      team: user.team,
     });
   }
 
