@@ -16,9 +16,11 @@ export class AuthController {
   })
   async createAccessTokenTest(): Promise<TokenPair> {
     return new AuthUtil().createToken({
+      id: 9999,
       email: "test@ship-da.com",
       name: "tester",
-      picture: "",
+      photo: "abc",
+      team: "etc",
     });
   }
 

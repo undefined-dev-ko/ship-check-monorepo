@@ -2,19 +2,19 @@ import { randomUUID, createHash } from "crypto";
 import * as jwt from "jsonwebtoken";
 
 export type JwtPayload = {
+  id: number;
   name: string;
   email: string;
-  picture?: string;
-  refSig: string;
+  team: string;
+  photo?: string;
+  refSig?: string;
 };
 
 export class AuthUtil {
   private static secret: string = process.env.SECRET || randomUUID();
   constructor() {}
 
-  public createToken(
-    jwtPayload: Pick<JwtPayload, "email" | "name" | "picture">
-  ): {
+  public createToken(jwtPayload: JwtPayload): {
     accessToken: string;
     refreshToken: string;
   } {
@@ -49,9 +49,7 @@ export class AuthUtil {
       createHash("SHA-256").update(tokenPair.refreshToken).digest("base64")
     ) {
       return this.createToken({
-        email: jwtPayload.email,
-        name: jwtPayload.name,
-        picture: jwtPayload.picture,
+        ...jwtPayload,
       });
     }
 
