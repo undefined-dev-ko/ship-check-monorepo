@@ -1,7 +1,7 @@
 import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
 
 @Entity()
-export class Desk {
+export class Desnpmk {
   @PrimaryGeneratedColumn()
   id: number;
 
