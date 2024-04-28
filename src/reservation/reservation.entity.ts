@@ -1,52 +1,29 @@
-import { User } from "src/user/user.entity";
+import { ApiProperty } from "@nestjs/swagger";
 import {
   Entity,
   PrimaryGeneratedColumn,
   Column,
-  ManyToOne,
   CreateDateColumn,
-  BaseEntity,
+  DeleteDateColumn,
   JoinColumn,
 } from "typeorm";
 
 @Entity()
-export class Reservation extends BaseEntity {
+export class Reservation {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @ManyToOne((type) => User)
-  user: User;
-
   @JoinColumn()
+  @ApiProperty({ description: "유저 아이디" })
   userId: number;
 
   @Column()
+  @ApiProperty({ description: "자리 아이디" })
   seatId: number;
 
-  @Column()
   @CreateDateColumn()
   createdAt: Date;
-}
 
-@Entity()
-export class Seat {
-  @PrimaryGeneratedColumn()
-  id: number;
-
-  @Column()
-  deskNo: number;
-
-  reservation?: Reservation;
-}
-
-@Entity()
-export class Item {
-  @PrimaryGeneratedColumn()
-  id: number;
-
-  @Column()
-  category: "monitor" | "arm" | "charger";
-
-  @Column()
-  memo?: string;
+  @DeleteDateColumn()
+  deletedAt?: Date;
 }
