@@ -21,6 +21,10 @@ export class Reservation {
   @ApiProperty({ description: "자리 아이디" })
   seatId: number;
 
+  @Column()
+  @ApiProperty({ description: "예약 날짜 YYYYMMDD 형식" })
+  reservedAt: string;
+
   @CreateDateColumn()
   createdAt: Date;
 

@@ -15,6 +15,7 @@ import { User } from "src/user/user.entity";
 import {
   CreateReservationRequest,
   CreateReservationResponse,
+  GetReservationListResponse,
 } from "./dto/reservation.dto";
 
 @ApiTags("reservation")
@@ -32,9 +33,12 @@ export class ReservationController {
     return this.reservationService.createReservation(body);
   }
 
-  @Get()
-  @ApiOperation({ summary: "사무실 자리 예약 현황 조회" })
-  findAll(): string {
-    return "This action returns all reservations";
-  }
+  // @Get()
+  // @ApiOperation({
+  //   summary: "사무실 자리 예약 현황 조회",
+  //   type: GetReservationListResponse,
+  // })
+  // findAll(): string {
+  //   return "This action returns all reservations";
+  // }
 }
