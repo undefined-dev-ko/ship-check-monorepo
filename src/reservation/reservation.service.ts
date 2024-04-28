@@ -1,12 +1,12 @@
-import { Injectable } from "@nestjs/common";
+import { Injectable, NotFoundException } from "@nestjs/common";
 import { InjectDataSource } from "@nestjs/typeorm";
 import { Reservation } from "./reservation.entity";
 import {
+  CancelReservationRequest,
   CreateReservationRequest,
   GetReservationListResponse,
-} from "./dto/reservation.dto";
+} from "./dto";
 import { DataSource } from "typeorm";
-import { User } from "src/user/user.entity";
 
 @Injectable()
 export class ReservationService {
@@ -34,5 +34,19 @@ export class ReservationService {
     });
 
     return await this.dataSource.manager.save(reservation);
+  }
+
+  async cancelReservation(payload: CancelReservationRequest): Promise<void> {
+    const reservation = this.dataSource.manager.findOne(Reservation, {
+      where: { ...payload },
+    });
+
+    if (!reservation) {
+      throw new NotFoundException("해당 예약이 존재하지 않습니다.");
+    }
+
+    await this.dataSource.manager.softDelete(Reservation, {
+      ...payload,
+    });
   }
 }

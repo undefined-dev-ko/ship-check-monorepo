@@ -1,8 +1,9 @@
 import { IsNotEmpty } from "class-validator";
-import { Reservation } from "../reservation.entity";
+import { Reservation } from "./reservation.entity";
 import { ApiProperty } from "@nestjs/swagger";
 
 export class CreateReservationRequest {
+  // TODO: 토큰으로 어떤 유저인지 알 수 있는지?
   @IsNotEmpty()
   userId: number;
 
@@ -21,7 +22,13 @@ export class GetReservationListResponse {
   list: Reservation[];
 }
 
-export class DeleteReservationDto {
+export class CancelReservationRequest {
   @IsNotEmpty()
-  id: number;
+  userId: number;
+
+  @IsNotEmpty()
+  seatId: number;
+
+  @IsNotEmpty()
+  reservedAt: string;
 }
