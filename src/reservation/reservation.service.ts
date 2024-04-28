@@ -1,7 +1,10 @@
 import { Injectable } from "@nestjs/common";
 import { InjectDataSource } from "@nestjs/typeorm";
 import { Reservation } from "./reservation.entity";
-import { CreateReservationRequest } from "./dto/reservation.dto";
+import {
+  CreateReservationRequest,
+  GetReservationListResponse,
+} from "./dto/reservation.dto";
 import { DataSource } from "typeorm";
 import { User } from "src/user/user.entity";
 
@@ -12,8 +15,12 @@ export class ReservationService {
     private readonly dataSource: DataSource
   ) {}
 
-  async getAllReservations(): Promise<any[]> {
-    return;
+  async getReservationList(reservedAt): Promise<GetReservationListResponse> {
+    const reservationList = await this.dataSource.manager.find(Reservation, {
+      where: { reservedAt },
+    });
+
+    return { list: reservationList };
   }
 
   async createReservation(

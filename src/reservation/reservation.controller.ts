@@ -3,6 +3,7 @@ import {
   Controller,
   Get,
   Logger,
+  Param,
   Post,
   UsePipes,
   ValidationPipe,
@@ -33,12 +34,11 @@ export class ReservationController {
     return this.reservationService.createReservation(body);
   }
 
-  // @Get()
-  // @ApiOperation({
-  //   summary: "사무실 자리 예약 현황 조회",
-  //   type: GetReservationListResponse,
-  // })
-  // findAll(): string {
-  //   return "This action returns all reservations";
-  // }
+  @Get("/:reservedAt")
+  @ApiOkResponse({ type: GetReservationListResponse })
+  async getReservationList(
+    @Param("reservedAt") reservedAt: string
+  ): Promise<GetReservationListResponse> {
+    return this.reservationService.getReservationList(reservedAt);
+  }
 }
