@@ -28,7 +28,7 @@ export class Reservation {
 
   @Column()
   @ApiProperty({ description: "예약 날짜 YYYYMMDD 형식" })
-  reservedAt: string;
+  reservedAt: Date;
 
   @CreateDateColumn()
   createdAt: Date;

@@ -1,4 +1,4 @@
-import { IsNotEmpty } from "class-validator";
+import { IsDateString, IsNotEmpty } from "class-validator";
 import { Reservation } from "./reservation.entity";
 import { ApiProperty } from "@nestjs/swagger";
 
@@ -10,9 +10,9 @@ export class CreateReservationRequest {
   @IsNotEmpty()
   seatId: number;
 
-  // TODO: YYYYMMDD 형식 검증?
   @IsNotEmpty()
-  reservedAt: string;
+  @IsDateString()
+  reservedAt: Date;
 }
 
 export class CreateReservationResponse extends Reservation {}
@@ -30,5 +30,6 @@ export class CancelReservationRequest {
   seatId: number;
 
   @IsNotEmpty()
-  reservedAt: string;
+  @IsDateString()
+  reservedAt: Date;
 }
