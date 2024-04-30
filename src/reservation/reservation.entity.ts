@@ -1,4 +1,6 @@
 import { ApiProperty } from "@nestjs/swagger";
+import { Seat } from "src/seat/seat.entity";
+import { User } from "src/user/user.entity";
 import {
   Entity,
   PrimaryGeneratedColumn,
@@ -6,6 +8,7 @@ import {
   CreateDateColumn,
   DeleteDateColumn,
   JoinColumn,
+  ManyToOne,
 } from "typeorm";
 
 @Entity()
@@ -13,11 +16,13 @@ export class Reservation {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @JoinColumn()
+  @ManyToOne(() => User, { eager: true })
+  @JoinColumn({ name: "userId" })
   @ApiProperty({ description: "유저 아이디" })
   userId: number;
 
-  @Column()
+  @ManyToOne(() => Seat, { eager: true })
+  @JoinColumn({ name: "seatId" })
   @ApiProperty({ description: "자리 아이디" })
   seatId: number;
 

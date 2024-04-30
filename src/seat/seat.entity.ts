@@ -1,10 +1,11 @@
 import { ApiProperty } from "@nestjs/swagger";
+import { User } from "src/user/user.entity";
 import {
   Entity,
   PrimaryGeneratedColumn,
   Column,
-  CreateDateColumn,
-  DeleteDateColumn,
+  JoinColumn,
+  ManyToOne,
 } from "typeorm";
 
 @Entity()
@@ -17,7 +18,8 @@ export class Seat {
   @ApiProperty({ description: "책상 번호" })
   deskNo: number;
 
-  @Column()
+  @ManyToOne(() => User, { eager: true })
+  @JoinColumn({ name: "fixedUserId" })
   @ApiProperty({ description: "고정 user의 id" })
   fixedUserId: number;
 }
