@@ -4,6 +4,7 @@ import { Reservation } from "./reservation.entity";
 import {
   CancelReservationRequest,
   CreateReservationRequest,
+  CreateReservationResponse,
   GetReservationListResponse,
 } from "./dto";
 import { DataSource } from "typeorm";
@@ -28,7 +29,7 @@ export class ReservationService {
   async createReservation(
     payload: CreateReservationRequest,
     userId: number
-  ): Promise<Reservation> {
+  ): Promise<CreateReservationResponse> {
     const seat = await this.dataSource.manager.findOne(Seat, {
       where: { id: payload.seatId },
     });
@@ -44,7 +45,9 @@ export class ReservationService {
       userId,
     });
 
-    return await this.dataSource.manager.save(reservation);
+    const reservationResponse = await this.dataSource.manager.save(reservation);
+
+    return new CreateReservationResponse(reservationResponse);
   }
 
   async cancelReservation(payload: CancelReservationRequest): Promise<void> {

@@ -42,8 +42,7 @@ export class ReservationController {
   @Get("/:reservedAt")
   @ApiOkResponse({ type: GetReservationListResponse })
   async getReservationList(
-    @AuthPayload() user: JwtPayload,
-    @Param("reservedAt") reservedAt: string
+    @Param("reservedAt") reservedAt: Date
   ): Promise<GetReservationListResponse> {
     return this.reservationService.getReservationList(reservedAt);
   }
