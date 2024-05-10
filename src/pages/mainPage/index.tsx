@@ -1,7 +1,11 @@
 import { useMutation, useQuery } from '@tanstack/react-query';
 import dayjs from 'dayjs';
 import { useState } from 'react';
-import { RAW_QUERY } from '../../api/query';
+import {
+  RAW_QUERY,
+  useGetAllReservation,
+  useGetAllSeat,
+} from '../../api/query';
 import Calendar from '../../components/Calendar';
 import Notice from '../../components/Notice';
 import Reservation from '../../components/Reservation';
@@ -18,34 +22,22 @@ function MainPage() {
 
   const { tokenPair, user } = useTokenAuth();
 
-  const { data: getAllSeatResponse } = useQuery({
-    queryKey: ['seats'],
-    queryFn: () => RAW_QUERY.getAllSeats(tokenPair),
-    enabled: !!tokenPair,
+  const getAllSeatResponse = useGetAllSeat();
+  const getAllReservationResponse = useGetAllReservation({
+    reservedAt: clickedDateString,
   });
-
-  const { data: getReservationListResponse, refetch: refetchReservationList } =
-    useQuery({
-      queryKey: ['reservations', clickedDateString],
-      queryFn: () =>
-        RAW_QUERY.getReservationList({
-          ...tokenPair,
-          reservedAt: clickedDateString,
-        }),
-      enabled: !!tokenPair && !!getAllSeatResponse,
-    });
 
   const { mutate: createReservationMutate } = useMutation({
     mutationFn: RAW_QUERY.createReservation,
     onSuccess: (data) => {
-      refetchReservationList();
+      // refetchReservationList();
     },
   });
 
   const { mutate: cancelReservationMutate } = useMutation({
     mutationFn: RAW_QUERY.cancelReservation,
     onSuccess: (data) => {
-      refetchReservationList();
+      // refetchReservationList();
     },
   });
 
@@ -90,11 +82,11 @@ function MainPage() {
               }}
             />
 
-            {getReservationListResponse && (
+            {getAllReservationResponse && (
               <Reservation
                 currentDate={clickedDate}
                 seatList={getAllSeatResponse.list}
-                reservationList={getReservationListResponse.list}
+                reservationList={getAllReservationResponse.list}
                 myself={user}
                 createReservation={createReservation}
                 cancelReservation={cancelReservation}

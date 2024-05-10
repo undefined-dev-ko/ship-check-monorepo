@@ -6,7 +6,7 @@ import React, { Suspense } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import MainPage from './pages/mainPage';
 import AuthGoogle from './pages/auth/google';
-import AuthTest from './pages/auth/test';
+// import AuthTest from './pages/auth/test';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { UserProvider } from './context/userContext';
 
@@ -48,7 +48,7 @@ function App() {
             <Routes>
               <Route path="/" element={<MainPage />} />
               <Route path="/auth/google" element={<AuthGoogle />} />
-              <Route path="/auth/test" element={<AuthTest />} />
+              {/* <Route path="/auth/test" element={<AuthTest />} /> */}
               <Route path="/*" element={<MainPage />} />
             </Routes>
           </Suspense>
