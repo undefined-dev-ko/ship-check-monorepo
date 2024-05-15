@@ -1,22 +1,67 @@
-import { Reservation as ReservationType, Seat, User } from '../../types';
 import Desk from './Desk';
 import Styled from './index.styles';
+import { useMutation } from '@tanstack/react-query';
 
-function Reservation({
-  currentDate,
-  seatList,
-  reservationList,
-  myself,
-  createReservation,
-  cancelReservation,
-}: {
-  currentDate: Date;
-  seatList: Seat[];
-  reservationList: ReservationType[];
-  myself: User;
-  createReservation: (seatId: number) => void;
-  cancelReservation: (seatId: number) => void;
-}) {
+import dayjs from 'dayjs';
+import { User } from '../../types';
+import {
+  RAW_QUERY,
+  useGetAllReservation,
+  useGetAllSeat,
+} from '../../api/query';
+
+function Reservation({ currentDate }: { currentDate: Date }) {
+  const clickedDateString = dayjs(currentDate).format('YYYY-MM-DD');
+
+  const { list: seatList } = useGetAllSeat() ?? {};
+
+  const { list: reservationList } =
+    useGetAllReservation({
+      reservedAt: clickedDateString,
+    }) ?? {};
+
+  const { mutate: createReservationMutate } = useMutation({
+    mutationFn: RAW_QUERY.createReservation,
+    onSuccess: (data) => {
+      // refetchReservationList();
+    },
+  });
+
+  const { mutate: cancelReservationMutate } = useMutation({
+    mutationFn: RAW_QUERY.cancelReservation,
+    onSuccess: (data) => {
+      // refetchReservationList();
+    },
+  });
+
+  const createReservation = (seatId: number) => {
+    // createReservationMutate({
+    //   ...tokenPair,
+    //   reservedAt: clickedDateString,
+    //   seatId,
+    // });
+  };
+
+  const cancelReservation = (seatId: number) => {
+    // cancelReservationMutate({
+    //   ...tokenPair,
+    //   reservedAt: clickedDateString,
+    //   seatId,
+    // });
+  };
+
+  const myself: User = {
+    id: 1,
+    email: 'test@test.com',
+    name: 'test',
+    photo: 'test',
+    reservations: [],
+    createdAt: new Date(),
+    updatedAt: new Date(),
+  };
+
+  if (!seatList || !reservationList) return <>loading</>;
+
   return (
     <Styled.Container>
       <Styled.SeatList>

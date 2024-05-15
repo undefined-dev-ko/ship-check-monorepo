@@ -4,7 +4,7 @@ import { useTokenAuth } from '../../hooks/useTokenAuth';
 import { useGoogleAuth } from '../../hooks/useGoogleAuth';
 
 function Header() {
-  const { isLoggedIn, clearToken, user } = useTokenAuth();
+  const { isLoggedIn, clearToken } = useTokenAuth();
   const { oauthSignIn: googleOauthSignin } = useGoogleAuth();
   // const { user, actions } = useUser();
 
@@ -14,8 +14,6 @@ function Header() {
   const handleLogoutClick = () => {
     clearToken();
   };
-
-  console.log(user);
 
   return (
     <Styled.Container>
@@ -28,7 +26,8 @@ function Header() {
         </Styled.Logo>
 
         <div className="right-container">
-          {user && <Styled.ProfileImage user={user} />}
+          {/* TODO: user API가 완성되면 연결 */}
+          {/* {user && <Styled.ProfileImage user={user} />} */}
 
           <MenuItem
             label={isLoggedIn ? 'Logout' : 'Login'}

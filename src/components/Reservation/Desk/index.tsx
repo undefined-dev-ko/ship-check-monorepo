@@ -11,7 +11,7 @@ function Desk({
 }: {
   seat: Seat | undefined;
   reservation: Reservation | undefined;
-  myself: User;
+  myself?: User;
   createReservation: (seatId: number) => void;
   cancelReservation: (seatId: number) => void;
 }) {

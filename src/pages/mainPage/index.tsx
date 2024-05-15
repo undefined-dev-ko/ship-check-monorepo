@@ -1,11 +1,6 @@
-import { useMutation, useQuery } from '@tanstack/react-query';
 import dayjs from 'dayjs';
 import { useState } from 'react';
-import {
-  RAW_QUERY,
-  useGetAllReservation,
-  useGetAllSeat,
-} from '../../api/query';
+
 import Calendar from '../../components/Calendar';
 import Notice from '../../components/Notice';
 import Reservation from '../../components/Reservation';
@@ -18,44 +13,8 @@ function MainPage() {
   const { baseDate, dayNames, setBaseDate, weekList } = useWeekList();
   const [clickedDate, setClickedDate] = useState<Date>(baseDate);
   const todayDate = new Date();
-  const clickedDateString = dayjs(clickedDate).format('YYYY-MM-DD');
 
-  const { tokenPair, user } = useTokenAuth();
-
-  const getAllSeatResponse = useGetAllSeat();
-  const getAllReservationResponse = useGetAllReservation({
-    reservedAt: clickedDateString,
-  });
-
-  const { mutate: createReservationMutate } = useMutation({
-    mutationFn: RAW_QUERY.createReservation,
-    onSuccess: (data) => {
-      // refetchReservationList();
-    },
-  });
-
-  const { mutate: cancelReservationMutate } = useMutation({
-    mutationFn: RAW_QUERY.cancelReservation,
-    onSuccess: (data) => {
-      // refetchReservationList();
-    },
-  });
-
-  const createReservation = (seatId: number) => {
-    createReservationMutate({
-      ...tokenPair,
-      reservedAt: clickedDateString,
-      seatId,
-    });
-  };
-
-  const cancelReservation = (seatId: number) => {
-    cancelReservationMutate({
-      ...tokenPair,
-      reservedAt: clickedDateString,
-      seatId,
-    });
-  };
+  const { isLoggedIn } = useTokenAuth();
 
   return (
     <Layout>
@@ -82,16 +41,7 @@ function MainPage() {
               }}
             />
 
-            {getAllReservationResponse && (
-              <Reservation
-                currentDate={clickedDate}
-                seatList={getAllSeatResponse.list}
-                reservationList={getAllReservationResponse.list}
-                myself={user}
-                createReservation={createReservation}
-                cancelReservation={cancelReservation}
-              />
-            )}
+            {isLoggedIn && <Reservation currentDate={clickedDate} />}
           </Styled.ContentBody>
         </Styled.MainPageContainer>
       </Styled.Container>
