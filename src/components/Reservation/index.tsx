@@ -1,13 +1,12 @@
 import Desk from './Desk';
 import Styled from './index.styles';
-import { useMutation } from '@tanstack/react-query';
-
 import dayjs from 'dayjs';
-import { User } from '../../types';
 import {
-  RAW_QUERY,
+  useCancelReservation,
+  useCreateReservation,
   useGetAllReservation,
   useGetAllSeat,
+  useGetUser,
 } from '../../api/query';
 
 function Reservation({ currentDate }: { currentDate: Date }) {
@@ -20,111 +19,37 @@ function Reservation({ currentDate }: { currentDate: Date }) {
       reservedAt: clickedDateString,
     }) ?? {};
 
-  const { mutate: createReservationMutate } = useMutation({
-    mutationFn: RAW_QUERY.createReservation,
-    onSuccess: (data) => {
-      // refetchReservationList();
-    },
-  });
+  const { data: myself } = useGetUser();
 
-  const { mutate: cancelReservationMutate } = useMutation({
-    mutationFn: RAW_QUERY.cancelReservation,
-    onSuccess: (data) => {
-      // refetchReservationList();
-    },
-  });
+  const { mutate: createReservationMutate } = useCreateReservation();
+  const { mutate: cancelReservationMutate } = useCancelReservation();
+  const handleCreateReservation = (seatId: number) =>
+    createReservationMutate({ seatId, reservedAt: clickedDateString });
 
-  const createReservation = (seatId: number) => {
-    // createReservationMutate({
-    //   ...tokenPair,
-    //   reservedAt: clickedDateString,
-    //   seatId,
-    // });
-  };
-
-  const cancelReservation = (seatId: number) => {
-    // cancelReservationMutate({
-    //   ...tokenPair,
-    //   reservedAt: clickedDateString,
-    //   seatId,
-    // });
-  };
-
-  const myself: User = {
-    id: 1,
-    email: 'test@test.com',
-    name: 'test',
-    photo: 'test',
-    reservations: [],
-    createdAt: new Date(),
-    updatedAt: new Date(),
-  };
+  const handleCancelReservation = (seatId: number) =>
+    cancelReservationMutate({ seatId, reservedAt: clickedDateString });
 
   if (!seatList || !reservationList) return <>loading</>;
 
   return (
     <Styled.Container>
-      <Styled.SeatList>
-        <ul className="first">
-          {[1, 2, 3, 4, 5].map((deskNo, i) => (
+      <ul className="seat-list">
+        {[...Array(20)]
+          .map((_, i) => i + 1) // 1 ~ 20 까지의 배열
+          .map((deskNo, i) => (
             <Desk
+              currentDate={clickedDateString}
               seat={seatList.find((e) => e.deskNo === deskNo)}
               reservation={reservationList.find(
                 (v) => v.seat.deskNo === deskNo,
               )}
               myself={myself}
-              createReservation={createReservation}
-              cancelReservation={cancelReservation}
+              createReservation={handleCreateReservation}
+              cancelReservation={handleCancelReservation}
               key={i}
             />
           ))}
-        </ul>
-
-        <ul className="second">
-          {[6, 7, 8, 9, 10].map((deskNo, i) => (
-            <Desk
-              seat={seatList.find((e) => e.deskNo === deskNo)}
-              reservation={reservationList.find(
-                (v) => v.seat.deskNo === deskNo,
-              )}
-              myself={myself}
-              createReservation={createReservation}
-              cancelReservation={cancelReservation}
-              key={i}
-            />
-          ))}
-        </ul>
-
-        <ul className="third">
-          {[11, 12, 13, 14, 15].map((deskNo, i) => (
-            <Desk
-              seat={seatList.find((e) => e.deskNo === deskNo)}
-              reservation={reservationList.find(
-                (v) => v.seat.deskNo === deskNo,
-              )}
-              myself={myself}
-              createReservation={createReservation}
-              cancelReservation={cancelReservation}
-              key={i}
-            />
-          ))}
-        </ul>
-
-        <ul className="fourth">
-          {[16, 17, 18, 19, 20].map((deskNo, i) => (
-            <Desk
-              seat={seatList.find((e) => e.deskNo === deskNo)}
-              reservation={reservationList.find(
-                (v) => v.seat.deskNo === deskNo,
-              )}
-              myself={myself}
-              createReservation={createReservation}
-              cancelReservation={cancelReservation}
-              key={i}
-            />
-          ))}
-        </ul>
-      </Styled.SeatList>
+      </ul>
     </Styled.Container>
   );
 }

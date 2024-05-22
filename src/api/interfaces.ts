@@ -1,7 +1,8 @@
-import { Reservation, Seat, TokenPair, User } from '../types';
+import { Reservation, Seat, User } from '../types';
 
 export type GetTokenPairWithGoogleAuthRequest = {
-  authorizationCode: string;
+  authorizationCode?: string;
+  onSuccess: (data: any) => void;
 };
 
 export type GetTokenPairWithGoogleAuthResponse = {
@@ -9,10 +10,9 @@ export type GetTokenPairWithGoogleAuthResponse = {
   refreshToken: string;
 };
 
-export type GetAllUserRequest = {} & TokenPair;
-export type GetAllUserResponse = Array<Pick<User, 'id' | 'email'>>;
+export type GetUserResponse = User;
 
-export type GetAllSeatRequest = {} & TokenPair;
+export type GetAllSeatRequest = {};
 export type GetAllSeatResponse = {
   list: Seat[];
 };
@@ -20,10 +20,10 @@ export type GetAllSeatResponse = {
 export type CreateReservationRequest = {
   seatId: number;
   reservedAt: string;
-} & TokenPair;
+};
 export type CreateReservationResponse = Reservation;
 
-export type GetReservationListRequest = {} & TokenPair;
+export type GetReservationListRequest = {};
 export type GetReservationListResponse = {
   list: Reservation[];
 };
@@ -31,4 +31,4 @@ export type GetReservationListResponse = {
 export type CancelReservationRequest = {
   seatId: number;
   reservedAt: string;
-} & TokenPair;
+};

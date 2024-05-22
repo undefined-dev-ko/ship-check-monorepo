@@ -9,6 +9,19 @@ const Container = styled.div`
   padding: 60px;
   background-color: ${COLOR.white};
   border-radius: 24px;
+
+  width: 1160px;
+  height: 564px;
+
+  .seat-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+
+    & > li:nth-child(n + 6):nth-child(-n + 10) {
+      margin-bottom: 60px;
+    }
+  }
 `;
 
 const TitleDate = styled.h1`
@@ -17,22 +30,4 @@ const TitleDate = styled.h1`
   font-weight: 600;
 `;
 
-const SeatList = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 12px;
-  width: 1160px;
-  height: 564px;
-
-  ul {
-    display: flex;
-    gap: 12px;
-
-    &.third {
-      margin-top: 60px;
-    }
-  }
-`;
-
-export default { Container, TitleDate, SeatList };
+export default { Container, TitleDate };

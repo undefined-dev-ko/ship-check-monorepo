@@ -5,6 +5,7 @@ import { User } from '../../types';
 const Container = styled.div`
   width: 100%;
   background-color: ${COLOR.white};
+  align-items: center;
 
   .right-container {
     display: flex;

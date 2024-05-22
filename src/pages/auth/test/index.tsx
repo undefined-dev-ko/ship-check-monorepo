@@ -1,7 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import AuthCheck from '../../../hocs/AuthCheck';
 import { useTokenAuth } from '../../../hooks/useTokenAuth';
-import { RAW_QUERY } from '../../../api/query';
 
 // const AuthTest = () => {
 //   const { tokenPair, user } = useTokenAuth();

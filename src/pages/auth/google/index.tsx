@@ -1,8 +1,7 @@
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import { useTokenAuth } from '../../../hooks/useTokenAuth';
+import { useGetTokenPairWithGoogleAuth } from '../../../api/query';
 import { useEffect } from 'react';
-import { useMutation } from '@tanstack/react-query';
-import { RAW_QUERY } from '../../../api/query';
 
 export default function AuthGoogle() {
   const [searchParams] = useSearchParams();
@@ -10,10 +9,9 @@ export default function AuthGoogle() {
   const { storeToken } = useTokenAuth();
   const navigate = useNavigate();
 
-  const { mutate } = useMutation({
-    mutationFn: RAW_QUERY.getTokenPairWithGoogleAuth,
-    onSuccess: (data) => {
-      storeToken(data);
+  const { mutate } = useGetTokenPairWithGoogleAuth({
+    onSuccess: ({ accessToken, refreshToken }) => {
+      storeToken({ accessToken, refreshToken });
       navigate('/');
     },
   });

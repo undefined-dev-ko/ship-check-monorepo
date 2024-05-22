@@ -11,7 +11,9 @@ const Container = styled.li<{ isHovering?: boolean; isMine?: boolean }>`
   border-radius: 16px;
   color: ${COLOR.white};
   box-shadow: ${(props) =>
-    props.isMine ? `0 0 0 8px ${COLOR.primaryGreen} inset` : ''};
+    props.isMine && !props.isHovering
+      ? `0 0 0 8px ${COLOR.primaryGreen} inset`
+      : ''};
 
   .text {
     font-weight: 600;
@@ -31,18 +33,17 @@ const Container = styled.li<{ isHovering?: boolean; isMine?: boolean }>`
     background-color: ${COLOR.primaryGray};
   }
   &.reserved {
-    background-color: ${(props) =>
+    ${(props) =>
       props.isHovering && props.isMine
-        ? COLOR.primaryRed
-        : COLOR.primaryPurple};
+        ? ` background: ${COLOR.primaryRed}; cursor: pointer; `
+        : `background: ${COLOR.primaryPurple}; `}
   }
   &.default {
-    background-color: ${(props) =>
-      props.isHovering ? COLOR.primaryGreen : '#eee'};
-    cursor: pointer;
+    ${(props) =>
+      props.isHovering
+        ? `background: ${COLOR.primaryGreen}; cursor: pointer;`
+        : `background: #eee;`}
   }
-
-  cursor: ${(props) => (props.isMine ? 'pointer' : 'default')};
 `;
 
 const ToolTip = styled.div`
