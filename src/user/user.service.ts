@@ -1,6 +1,6 @@
-import { Injectable } from "@nestjs/common";
+import { Injectable, NotFoundException } from "@nestjs/common";
 import { InjectDataSource } from "@nestjs/typeorm";
-import { DataSource } from "typeorm";
+import { DataSource, Not } from "typeorm";
 import { User } from "./user.entity";
 
 @Injectable()
@@ -17,6 +17,18 @@ export class UserService {
       relations: ["team"],
       where: { email },
     });
+  }
+
+  async getUser({ userId }: { userId: number }): Promise<User> {
+    const result = await this.dataSource.manager.findOne(User, {
+      where: { id: userId },
+    });
+
+    if (!result) {
+      throw new NotFoundException();
+    }
+
+    return result;
   }
 
   async createUser(
