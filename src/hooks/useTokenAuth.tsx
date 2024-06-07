@@ -1,21 +1,12 @@
-import { useEffect, useMemo, useState } from 'react';
-import { TokenPair, User } from '../types';
+import { useEffect } from 'react';
+import { TokenPair } from '../types';
 import { useAtom } from 'jotai';
 import { IS_LOGGED_IN } from '../states/atoms';
-
-const extractUserFromAccessToken = (accessToken: string | undefined) => {
-  if (!accessToken) {
-    return null;
-  }
-  const decodedPayload = atob(accessToken.split('.')[1]);
-  return JSON.parse(decodedPayload) as User;
-};
 
 const getToken = (): string | undefined => {
   return localStorage.getItem('accessToken');
 };
 
-/** #FIXME 로그아웃시 isLoggedIn이 제대로 false 처리가 안됨. Provider나 recoil로 변경해야할듯 */
 export const useTokenAuth = () => {
   const [isLoggedIn, setIsLoggedIn] = useAtom(IS_LOGGED_IN);
 

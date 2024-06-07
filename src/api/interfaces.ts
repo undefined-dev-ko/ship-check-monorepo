@@ -4,10 +4,18 @@ export type GetTokenPairWithGoogleAuthRequest = {
   authorizationCode?: string;
   onSuccess: (data: any) => void;
 };
-
 export type GetTokenPairWithGoogleAuthResponse = {
   accessToken: string;
   refreshToken: string;
+};
+
+export type TokenRefreshRequest = {
+  refreshToken: string;
+  accessToken: string;
+};
+export type TokenRefreshResponse = {
+  refreshToken: string;
+  accessToken: string;
 };
 
 export type GetUserResponse = User;

@@ -7,6 +7,8 @@ import {
   CreateReservationResponse,
   GetReservationListResponse,
   CancelReservationRequest,
+  TokenRefreshRequest,
+  TokenRefreshResponse,
 } from './interfaces';
 import useAppQuery from '../hooks/useAppQuery';
 import useAppMutation from '../hooks/useAppMutation';
@@ -37,6 +39,7 @@ function useGetAllReservation({
   });
   return data;
 }
+
 function useGetTokenPairWithGoogleAuth({
   onSuccess,
 }: {
