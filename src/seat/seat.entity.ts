@@ -2,14 +2,12 @@ import { ApiProperty } from "@nestjs/swagger";
 import {
   Column,
   Entity,
-  JoinColumn,
   OneToMany,
-  OneToOne,
   PrimaryGeneratedColumn,
   Relation,
 } from "typeorm";
 import { Reservation } from "../reservation/reservation.entity";
-import { User } from "../user/user.entity";
+import { Item } from "../item/item.entity";
 
 @Entity()
 export class Seat {
@@ -25,12 +23,7 @@ export class Seat {
   @OneToMany(() => Reservation, (reservation) => reservation.seat)
   reservations: Relation<Reservation[]>;
 
-  @ApiProperty({ description: "고정 유저", type: User })
-  @OneToOne(() => User, (user) => user.fixedSeat)
-  @JoinColumn({ name: "fixedUserId", referencedColumnName: "id" })
-  fixedUser?: Relation<User>;
-
-  @Column({ nullable: true })
-  @ApiProperty({ description: "고정 유저 ID" })
-  fixedUserId?: number;
+  @ApiProperty({ description: "장비 리스트", type: Item, isArray: true })
+  @OneToMany(() => Item, (item) => item.seat)
+  items: Relation<Item[]>;
 }
