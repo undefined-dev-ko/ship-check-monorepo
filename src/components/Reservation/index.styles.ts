@@ -8,7 +8,6 @@ const Container = styled.div`
   gap: 40px;
   padding: 60px;
   background-color: ${COLOR.white};
-  border-radius: 24px;
 
   width: 1160px;
   height: 564px;

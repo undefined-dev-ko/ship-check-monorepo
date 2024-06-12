@@ -1,5 +1,4 @@
 import { useState } from 'react';
-
 import Calendar from '../../components/Calendar';
 import Notice from '../../components/Notice';
 import Reservation from '../../components/Reservation';
@@ -7,6 +6,7 @@ import Layout from '../../containers/Layout';
 import { useTokenAuth } from '../../hooks/useTokenAuth';
 import useWeekList from '../../hooks/useWeekList';
 import Styled from './index.styles';
+import { useGetUser } from '../../api/query';
 
 function MainPage() {
   const { baseDate, dayNames, setBaseDate, weekList } = useWeekList();
@@ -14,6 +14,7 @@ function MainPage() {
   const todayDate = new Date();
 
   const { isLoggedIn } = useTokenAuth();
+  const { data: myself } = useGetUser();
 
   return (
     <Layout>
@@ -40,7 +41,9 @@ function MainPage() {
               }}
             />
 
-            {isLoggedIn && <Reservation currentDate={clickedDate} />}
+            {isLoggedIn && (
+              <Reservation currentDate={clickedDate} myself={myself} />
+            )}
           </Styled.ContentBody>
         </Styled.MainPageContainer>
       </Styled.Container>

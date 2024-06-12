@@ -7,8 +7,6 @@ import {
   CreateReservationResponse,
   GetReservationListResponse,
   CancelReservationRequest,
-  TokenRefreshRequest,
-  TokenRefreshResponse,
 } from './interfaces';
 import useAppQuery from '../hooks/useAppQuery';
 import useAppMutation from '../hooks/useAppMutation';
@@ -59,17 +57,17 @@ function useGetTokenPairWithGoogleAuth({
   return mutate;
 }
 
-function useCreateReservation(payload?: CreateReservationRequest) {
+function useCreateReservation() {
   return useAppMutation<CreateReservationRequest, CreateReservationResponse>({
     mutationKey: ['reservations'],
-    requestOptions: { method: 'POST', path: '/reservation', data: payload },
+    requestOptions: { method: 'POST', path: '/reservation' },
   });
 }
 
-function useCancelReservation(payload?: CancelReservationRequest) {
+function useCancelReservation() {
   return useAppMutation<CancelReservationRequest, void>({
     mutationKey: ['reservations'],
-    requestOptions: { method: 'DELETE', path: '/reservation', data: payload },
+    requestOptions: { method: 'DELETE', path: '/reservation' },
   });
 }
 

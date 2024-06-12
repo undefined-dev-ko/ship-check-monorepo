@@ -34,8 +34,9 @@ const ContentBody = styled.div`
   flex-direction: column;
   align-items: center;
   background-color: #ffffff;
-  border-radius: 24px;
+  height: 896px;
 
+  border-radius: 24px;
   padding: 60px;
 `;
 
