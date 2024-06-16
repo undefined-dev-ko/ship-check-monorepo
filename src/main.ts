@@ -8,7 +8,19 @@ import helmet from "helmet";
 require("source-map-support").install();
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule, { cors: true });
+  const app = await NestFactory.create(AppModule);
+
+  app.enableCors({
+    origin: [
+      "http://127.0.0.1",
+      "http://127.0.0.1:3000",
+      "http://localhost",
+      "http://localhost:3000",
+      "https://ship-check-fe-prv.vercel.app",
+      "https://ship-check-fe-prv.vercel.app/",
+    ],
+    methods: "GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS",
+  });
 
   app.use(
     express.urlencoded({
@@ -24,7 +36,6 @@ async function bootstrap() {
   );
 
   app.use(helmet({ hidePoweredBy: true }));
-  // app.enableCors();
   app.useGlobalPipes(
     new ValidationPipe({
       whitelist: true,
