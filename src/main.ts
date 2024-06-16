@@ -20,6 +20,7 @@ async function bootstrap() {
       "https://ship-check-fe-prv.vercel.app/",
     ],
     methods: "GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS",
+    credentials: true,
   });
 
   app.use(
