@@ -1,0 +1,29 @@
+name: CI
+
+on:
+  push:
+    branches: [release]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container:
+      pandoc/latex # "ubuntu" is a more generic container
+      # using "pandoc/latex" because of dependencies
+      # used in the specific "build.sh"
+    steps:
+      - uses: actions/checkout@v4
+      - name: creates output
+        run:
+          sh .github/build.sh # some command from your repository that creates
+          # output to "source-directory" ("output" in the example)
+      - name: Pushes to another repository
+        uses: cpina/github-action-push-to-another-repository@main
+        env:
+          API_TOKEN_GITHUB: ${{ secrets.GH_PAT }}
+        with:
+          source-directory: 'output'
+          destination-github-username: 'undefineddev2024'
+          destination-repository-name: 'ship-check-fe-prv'
+          user-email: undefineddev2024@gmail.com
+          target-branch: release
