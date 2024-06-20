@@ -20,12 +20,11 @@ type EnvName =
 export class ConfigService {
   private environments: Record<string, any>;
   constructor() {
-    this.environments = dotenv.parse(readFileSync(".env"));
     dotenv.config({ path: ".env" });
   }
 
   private get(envName: EnvName, required = false) {
-    const value = this.environments[envName];
+    const value = process.env[envName] || "";
     required &&
       !value &&
       (() => {
@@ -34,7 +33,7 @@ export class ConfigService {
     return value;
   }
 
-  getNodeEnv(): "dev" | "prod" {
+  getNodeEnv(): string {
     return this.get("NODE_ENV") || "dev";
   }
 
