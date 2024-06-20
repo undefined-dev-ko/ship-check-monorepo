@@ -3,7 +3,7 @@ on:
   workflow_dispatch:
   push:
     branches:
-      - release
+      - release-test
 jobs:
   deploy:
     runs-on: self-hosted
