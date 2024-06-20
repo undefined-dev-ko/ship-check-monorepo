@@ -22,6 +22,11 @@ import { ConfigService } from "../config/config.service";
           database: databaseConfig.db,
           entities: [__dirname + "/../**/*.entity{.ts,.js}"],
           synchronize: nodeEnv === "dev",
+          extra: {
+            ssl: {
+              rejectUnauthorized: false,
+            },
+          },
           // dropSchema: true,
         };
       },
