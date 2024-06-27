@@ -32,7 +32,7 @@ export class ReservationService {
 
   async getReservationList(reservedAt): Promise<GetReservationListResponse> {
     const reservationList = await this.dataSource.manager.find(Reservation, {
-      relations: ["seat", "user"],
+      relations: ["seat", "user", "user.team"],
       where: { reservedAt },
     });
 
