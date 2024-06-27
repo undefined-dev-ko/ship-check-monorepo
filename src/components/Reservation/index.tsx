@@ -8,6 +8,8 @@ import {
   useGetAllSeat,
 } from '../../api/query';
 import { User } from '../../types';
+import useModal from '../../hooks/useModal';
+import CustomModal from '../Modal';
 
 function Reservation({
   currentDate,
@@ -17,6 +19,7 @@ function Reservation({
   myself: User;
 }) {
   const clickedDateString = dayjs(currentDate).format('YYYY-MM-DD');
+  const { isOpen, message, openModal, closeModal } = useModal();
 
   const { list: seatList = [] } = useGetAllSeat() || {};
   const { list: reservationList = [] } =
@@ -24,11 +27,23 @@ function Reservation({
       reservedAt: clickedDateString,
     }) || {};
 
-  const { mutate: createReservationMutate } = useCreateReservation();
+  const { mutateAsync: createReservationMutate } = useCreateReservation();
   const { mutate: cancelReservationMutate } = useCancelReservation();
 
-  const handleCreateReservation = (seatId: number) =>
-    createReservationMutate({ seatId, reservedAt: clickedDateString });
+  const handleCreateReservation = async (seatId: number) => {
+    try {
+      await createReservationMutate({ seatId, reservedAt: clickedDateString });
+    } catch (error: any) {
+      if (error.response.status === 409) {
+        openModal([
+          '이미 예약한 좌석이 있습니다.',
+          '예약 취소 후 새롭게 예약이 가능합니다.',
+        ]);
+      } else if (error.response.status === 400) {
+        openModal(['예약할 수 없는 좌석입니다.']);
+      }
+    }
+  };
   const handleCancelReservation = (seatId: number) =>
     cancelReservationMutate({ seatId, reservedAt: clickedDateString });
 
@@ -56,6 +71,14 @@ function Reservation({
           .map((_, i) => i + 1) // 1 ~ 20 까지의 배열
           .map((deskNo, i) => renderDesk(deskNo, i))}
       </ul>
+
+      <CustomModal isOpen={isOpen} onClose={closeModal}>
+        {message.map((m, i) => (
+          <>
+            <p key={i}>{m}</p>
+          </>
+        ))}
+      </CustomModal>
     </Styled.Container>
   );
 }

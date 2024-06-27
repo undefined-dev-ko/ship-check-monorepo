@@ -17,7 +17,7 @@ function Default({
   return (
     <Styled.Container
       className="default"
-      isHovering={isHovering}
+      $isHovering={isHovering}
       onMouseOver={handleMouseOver}
       onMouseOut={handleMouseOut}
       onClick={onReserveButtonClick}

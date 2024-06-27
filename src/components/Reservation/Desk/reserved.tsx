@@ -20,7 +20,7 @@ function Reserved({
   return (
     <Styled.Container
       className="reserved"
-      isHovering={isHovering}
+      $isHovering={isHovering}
       isMine={isMine}
       onMouseOver={handleMouseOver}
       onMouseOut={handleMouseOut}

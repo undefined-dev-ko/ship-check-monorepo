@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { COLOR } from '../../../styles/constants';
 
-const Container = styled.li<{ isHovering?: boolean; isMine?: boolean }>`
+const Container = styled.li<{ $isHovering?: boolean; isMine?: boolean }>`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -11,7 +11,7 @@ const Container = styled.li<{ isHovering?: boolean; isMine?: boolean }>`
   border-radius: 16px;
   color: ${COLOR.white};
   box-shadow: ${(props) =>
-    props.isMine && !props.isHovering
+    props.isMine && !props.$isHovering
       ? `0 0 0 8px ${COLOR.primaryGreen} inset`
       : ''};
 
@@ -34,13 +34,13 @@ const Container = styled.li<{ isHovering?: boolean; isMine?: boolean }>`
   }
   &.reserved {
     ${(props) =>
-      props.isHovering && props.isMine
+      props.$isHovering && props.isMine
         ? ` background: ${COLOR.primaryRed}; cursor: pointer; `
         : `background: ${COLOR.primaryPurple}; `}
   }
   &.default {
     ${(props) =>
-      props.isHovering
+      props.$isHovering
         ? `background: ${COLOR.primaryGreen}; cursor: pointer;`
         : `background: #eee;`}
   }
