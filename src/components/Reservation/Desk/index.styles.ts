@@ -44,6 +44,12 @@ const Container = styled.li<{ $isHovering?: boolean; isMine?: boolean }>`
         ? `background: ${COLOR.primaryGreen}; cursor: pointer;`
         : `background: #eee;`}
   }
+
+  .desk-no {
+    font-size: 38px;
+    font-weight: 400;
+    color: #fcfcfc;
+  }
 `;
 
 const ToolTip = styled.div`

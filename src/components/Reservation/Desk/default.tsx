@@ -2,12 +2,14 @@ import Styled from './index.styles';
 import { Item } from '../../../types';
 
 function Default({
+  deskNo,
   isHovering,
   handleMouseOver,
   handleMouseOut,
   onReserveButtonClick,
   items = [],
 }: {
+  deskNo: number;
   isHovering: boolean;
   handleMouseOver: () => void;
   handleMouseOut: () => void;
@@ -39,6 +41,8 @@ function Default({
           </Styled.ToolTip>
         </>
       )}
+
+      {!isHovering && <p className="desk-no">{deskNo}</p>}
     </Styled.Container>
   );
 }

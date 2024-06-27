@@ -2,8 +2,8 @@ export interface Team {
   id: number;
   name: string;
   users: User[];
-  createdAt: Date;
-  updatedAt: Date;
+  createdAt?: Date;
+  updatedAt?: Date;
   deletedAt?: Date;
 }
 
@@ -19,8 +19,8 @@ export interface User {
   team?: Team;
   teamId?: number;
   fixedSeat?: Seat;
-  createdAt: Date;
-  updatedAt: Date;
+  createdAt?: Date;
+  updatedAt?: Date;
   deletedAt?: Date;
 }
 

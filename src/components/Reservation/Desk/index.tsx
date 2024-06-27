@@ -6,6 +6,7 @@ import Reserved from './reserved';
 
 function Desk({
   seat,
+  deskNo,
   reservation,
   myself,
   createReservation,
@@ -13,6 +14,7 @@ function Desk({
 }: {
   currentDate: string;
   seat: Seat | undefined;
+  deskNo: number;
   reservation: Reservation | undefined;
   myself?: User;
   createReservation: (seatId: number) => void;
@@ -25,6 +27,7 @@ function Desk({
   if (!seat) {
     return (
       <Default
+        deskNo={deskNo}
         isHovering={false}
         handleMouseOver={() => {}}
         handleMouseOut={() => {}}
@@ -61,6 +64,7 @@ function Desk({
   else {
     return (
       <Default
+        deskNo={deskNo}
         isHovering={isHovering}
         handleMouseOver={handleMouseOver}
         handleMouseOut={handleMouseOut}
