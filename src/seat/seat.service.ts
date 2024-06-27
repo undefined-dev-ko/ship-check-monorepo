@@ -9,6 +9,8 @@ export class SeatService {
   constructor(@InjectDataSource() private readonly dataSource: DataSource) {}
 
   async getSeatList(): Promise<GetSeatListResponse> {
-    return { list: await this.dataSource.manager.find(Seat) };
+    return {
+      list: await this.dataSource.manager.find(Seat, { relations: ["items"] }),
+    };
   }
 }
