@@ -9,6 +9,7 @@ const Container = styled.div`
 
   .right-container {
     display: flex;
+    align-items: center;
     gap: 20px;
   }
 `;

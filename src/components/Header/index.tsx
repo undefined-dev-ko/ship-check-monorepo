@@ -2,11 +2,12 @@ import MenuItem from './MenuItem';
 import Styled from './index.styles';
 import { useTokenAuth } from '../../hooks/useTokenAuth';
 import { useGoogleAuth } from '../../hooks/useGoogleAuth';
+import { useGetUser } from '../../api/query';
 
 function Header() {
   const { isLoggedIn, clearToken } = useTokenAuth();
   const { oauthSignIn: googleOauthSignin } = useGoogleAuth();
-  // const { user, actions } = useUser();
+  const { data: user } = useGetUser();
 
   const handleLoginClick = () => {
     googleOauthSignin();
@@ -26,8 +27,7 @@ function Header() {
         </Styled.Logo>
 
         <div className="right-container">
-          {/* TODO: user API가 완성되면 연결 */}
-          {/* {user && <Styled.ProfileImage user={user} />} */}
+          {user && <Styled.ProfileImage user={user} />}
 
           <MenuItem
             label={isLoggedIn ? 'Logout' : 'Login'}
