@@ -14,7 +14,9 @@ function MainPage() {
   const todayDate = new Date();
 
   const { isLoggedIn } = useTokenAuth();
-  const { data: myself } = useGetUser();
+  const { data: myself } = useGetUser({
+    enabled: !!isLoggedIn,
+  });
 
   return (
     <Layout>

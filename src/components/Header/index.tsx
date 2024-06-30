@@ -7,7 +7,9 @@ import { useGetUser } from '../../api/query';
 function Header() {
   const { isLoggedIn, clearToken } = useTokenAuth();
   const { oauthSignIn: googleOauthSignin } = useGoogleAuth();
-  const { data: user } = useGetUser();
+  const { data: user } = useGetUser({
+    enabled: !!isLoggedIn,
+  });
 
   const handleLoginClick = () => {
     googleOauthSignin();

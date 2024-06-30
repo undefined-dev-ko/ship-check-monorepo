@@ -19,10 +19,11 @@ function useGetAllSeat(): GetAllSeatResponse {
   return data;
 }
 
-function useGetUser() {
+function useGetUser({ enabled }: { enabled?: boolean }) {
   return useAppQuery<GetUserResponse>({
     queryKey: ['users'],
     requestOptions: { method: 'GET', path: '/user/detail' },
+    enabled,
   });
 }
 
