@@ -29,7 +29,7 @@ function Header() {
         </Styled.Logo>
 
         <div className="right-container">
-          {user && <Styled.ProfileImage user={user} />}
+          {isLoggedIn && user && <Styled.ProfileImage user={user} />}
 
           <MenuItem
             label={isLoggedIn ? 'Logout' : 'Login'}

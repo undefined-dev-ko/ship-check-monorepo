@@ -21,6 +21,7 @@ function Reservation({
 }) {
   const clickedDateString = dayjs(currentDate).format('YYYY-MM-DD');
   const { isOpen, message, openModal, closeModal } = useModal();
+  const isPassed = isBeforeToday(currentDate);
 
   const { list: seatList = [] } = useGetAllSeat() || {};
 
@@ -151,6 +152,7 @@ function Reservation({
           deskNo={deskNo}
           reservation={reservation}
           myself={myself}
+          isPassed={isPassed}
           createReservation={seat ? handleCreateReservation : () => {}}
           cancelReservation={seat ? handleCancelReservation : () => {}}
           key={i}
@@ -178,6 +180,17 @@ function Reservation({
       </CustomModal>
     </Styled.Container>
   );
+}
+
+/**
+ * 오늘 날짜보다 이전 날짜인지 확인
+ * @param date 날짜
+ * @returns
+ */
+function isBeforeToday(date: Date) {
+  const today = dayjs().startOf('day');
+  const inputDate = dayjs(date).startOf('day');
+  return inputDate.isBefore(today);
 }
 
 export default Reservation;

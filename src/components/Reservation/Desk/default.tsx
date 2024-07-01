@@ -5,6 +5,7 @@ import Loading from '../../Loading';
 function Default({
   deskNo,
   isHovering,
+  isPassed,
   handleMouseOver,
   handleMouseOut,
   onReserveButtonClick,
@@ -13,25 +14,27 @@ function Default({
 }: {
   deskNo: number;
   isHovering: boolean;
+  isPassed: boolean;
   handleMouseOver: () => void;
   handleMouseOut: () => void;
   items?: Item[];
   onReserveButtonClick: () => void;
   isPendingCreate: boolean;
 }) {
+  const hoverActive = isHovering && !isPassed;
   return (
     <Styled.Container
       className="default"
-      $isHovering={isHovering}
+      $isHovering={hoverActive}
       onMouseOver={handleMouseOver}
       onMouseOut={handleMouseOut}
-      onClick={onReserveButtonClick}
+      onClick={hoverActive ? onReserveButtonClick : () => {}}
     >
       {isPendingCreate ? (
         <Loading />
       ) : (
         <>
-          {isHovering && (
+          {hoverActive && (
             <>
               <p className="text">자리 예약하기</p>
 
@@ -49,7 +52,7 @@ function Default({
             </>
           )}
 
-          {!isHovering && <p className="desk-no">{deskNo}</p>}
+          {!hoverActive && <p className="desk-no">{deskNo}</p>}
         </>
       )}
     </Styled.Container>
