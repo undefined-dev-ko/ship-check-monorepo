@@ -1,5 +1,6 @@
 import Styled from './index.styles';
 import { Item } from '../../../types';
+import Loading from '../../Loading';
 
 function Default({
   deskNo,
@@ -8,6 +9,7 @@ function Default({
   handleMouseOut,
   onReserveButtonClick,
   items = [],
+  isPendingCreate,
 }: {
   deskNo: number;
   isHovering: boolean;
@@ -15,6 +17,7 @@ function Default({
   handleMouseOut: () => void;
   items?: Item[];
   onReserveButtonClick: () => void;
+  isPendingCreate: boolean;
 }) {
   return (
     <Styled.Container
@@ -24,25 +27,31 @@ function Default({
       onMouseOut={handleMouseOut}
       onClick={onReserveButtonClick}
     >
-      {isHovering && (
+      {isPendingCreate ? (
+        <Loading />
+      ) : (
         <>
-          <p className="text">자리 예약하기</p>
+          {isHovering && (
+            <>
+              <p className="text">자리 예약하기</p>
 
-          <Styled.ToolTip>
-            <img src="/info_icon.svg" alt="info" />
+              <Styled.ToolTip>
+                <img src="/info_icon.svg" alt="info" />
 
-            <div className="tooltiptext">
-              {items.length
-                ? items.map((item, index) => (
-                    <p key={index}>- {convertItems(item)}</p>
-                  ))
-                : 'No Item'}
-            </div>
-          </Styled.ToolTip>
+                <div className="tooltiptext">
+                  {items.length
+                    ? items.map((item, index) => (
+                        <p key={index}>- {convertItems(item)}</p>
+                      ))
+                    : 'No Item'}
+                </div>
+              </Styled.ToolTip>
+            </>
+          )}
+
+          {!isHovering && <p className="desk-no">{deskNo}</p>}
         </>
       )}
-
-      {!isHovering && <p className="desk-no">{deskNo}</p>}
     </Styled.Container>
   );
 }

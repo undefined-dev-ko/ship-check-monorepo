@@ -10,6 +10,7 @@ import {
 import { Seat, Team, User } from '../../types';
 import useModal from '../../hooks/useModal';
 import CustomModal from '../Modal';
+import { useState } from 'react';
 
 function Reservation({
   currentDate,
@@ -99,10 +100,25 @@ function Reservation({
       reservedAt: clickedDateString,
     }) || {};
 
-  const { mutateAsync: createReservationMutate } = useCreateReservation();
-  const { mutate: cancelReservationMutate } = useCancelReservation();
+  const [selectedSeatId, setSelectedSeatId] = useState<number | null>(null);
+
+  const { mutateAsync: createReservationMutate, isPending: isPendingCreate } =
+    useCreateReservation({
+      onSuccess: () => {
+        setSelectedSeatId(null);
+      },
+    });
+
+  const { mutate: cancelReservationMutate, isPending: isPendingCancel } =
+    useCancelReservation({
+      onSuccess: () => {
+        setSelectedSeatId(null);
+      },
+    });
 
   const handleCreateReservation = async (seatId: number) => {
+    setSelectedSeatId(seatId);
+
     try {
       await createReservationMutate({ seatId, reservedAt: clickedDateString });
     } catch (error: any) {
@@ -116,8 +132,11 @@ function Reservation({
       }
     }
   };
-  const handleCancelReservation = (seatId: number) =>
+
+  const handleCancelReservation = (seatId: number) => {
+    setSelectedSeatId(seatId);
     cancelReservationMutate({ seatId, reservedAt: clickedDateString });
+  };
 
   const renderDesk = (deskNo: number, i: number) => {
     const seat = allSeatList && allSeatList.find((e) => e.deskNo === deskNo);
@@ -125,18 +144,23 @@ function Reservation({
       reservationList && reservationList.find((v) => v.seat.deskNo === deskNo);
 
     return (
-      <Desk
-        currentDate={clickedDateString}
-        seat={seat}
-        deskNo={deskNo}
-        reservation={reservation}
-        myself={myself}
-        createReservation={seat ? handleCreateReservation : () => {}}
-        cancelReservation={seat ? handleCancelReservation : () => {}}
-        key={i}
-      />
+      <>
+        <Desk
+          currentDate={clickedDateString}
+          seat={seat}
+          deskNo={deskNo}
+          reservation={reservation}
+          myself={myself}
+          createReservation={seat ? handleCreateReservation : () => {}}
+          cancelReservation={seat ? handleCancelReservation : () => {}}
+          key={i}
+          isPendingCreate={isPendingCreate && selectedSeatId === seat?.id}
+          isPendingCancel={isPendingCancel && selectedSeatId === seat?.id}
+        />
+      </>
     );
   };
+
   return (
     <Styled.Container>
       <ul className="seat-list">

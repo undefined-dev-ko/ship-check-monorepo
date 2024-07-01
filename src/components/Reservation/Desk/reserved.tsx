@@ -1,3 +1,4 @@
+import Loading from '../../Loading';
 import Styled from './index.styles';
 
 function Reserved({
@@ -8,6 +9,7 @@ function Reserved({
   name,
   team,
   onClickCancelButton,
+  isPendingCancel,
 }: {
   isHovering: boolean;
   isMine: boolean;
@@ -16,6 +18,7 @@ function Reserved({
   name: string;
   team: string; // 'backend' | 'frontend' | 'design' | 'etc';
   onClickCancelButton: () => void;
+  isPendingCancel: boolean;
 }) {
   return (
     <Styled.Container
@@ -26,12 +29,18 @@ function Reserved({
       onMouseOut={handleMouseOut}
       onClick={onClickCancelButton}
     >
-      {isMine && isHovering ? (
-        <p className="text">예약 취소하기</p>
+      {isPendingCancel ? (
+        <Loading />
       ) : (
         <>
-          <p className="name">{name}</p>
-          <p className="team">{convertTeam(team)}</p>
+          {isMine && isHovering ? (
+            <p className="text">예약 취소하기</p>
+          ) : (
+            <>
+              <p className="name">{name}</p>
+              <p className="team">{convertTeam(team)}</p>
+            </>
+          )}
         </>
       )}
     </Styled.Container>
