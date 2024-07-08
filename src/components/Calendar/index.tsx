@@ -1,4 +1,6 @@
 import dayjs from 'dayjs';
+import utc from 'dayjs/plugin/utc';
+import timezone from 'dayjs/plugin/timezone';
 import LeftArrowIcon from '../SvgIcons/LeftArrowIcon';
 import RightArrowIcon from '../SvgIcons/RightArrowIcon';
 import DateBox from './DateBox';
@@ -6,6 +8,9 @@ import DayBox from './DayBox';
 import Styled from './index.styles';
 
 import { dateToYYYYMMDD } from './util';
+
+dayjs.extend(utc);
+dayjs.extend(timezone);
 
 type DateValue = {
   date: Date;
@@ -96,7 +101,10 @@ function Calendar({
                   }}
                   isClicked={dateYYYYMMDD === dateToYYYYMMDD(clickedDate)}
                   isToday={dateYYYYMMDD === dateToYYYYMMDD(todayDate)}
-                  isDisabled={dateYYYYMMDD < dateToYYYYMMDD(todayDate)}
+                  isDisabled={
+                    dateYYYYMMDD < dateToYYYYMMDD(todayDate) ||
+                    [0, 6].includes(dayjs(date).tz('Asia/Seoul').day())
+                  }
                   isReserved={reservedDateYYYYMMDDList.includes(dateYYYYMMDD)}
                   key={v.date.toString()}
                 />
