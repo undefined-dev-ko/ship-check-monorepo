@@ -61,13 +61,25 @@ function Calendar({
     }
   };
 
+  const onTodayButtonClick = () => {
+    const today = new Date();
+    setBaseDate(today);
+    onDateClick(today);
+  };
+
   const isFirstWeekOfMonth = weekListIndex === 0;
   const reservedDateYYYYMMDDList =
     reservedDateList?.map((v) => dateToYYYYMMDD(v)) || [];
 
   return (
     <Styled.Container>
-      <Styled.Header>{headerTitle}</Styled.Header>
+      <Styled.Header>
+        <div className="center">{headerTitle}</div>
+
+        <button className="right_reset_button" onClick={onTodayButtonClick}>
+          오늘
+        </button>
+      </Styled.Header>
 
       <Styled.Content>
         <Styled.RoundBox
