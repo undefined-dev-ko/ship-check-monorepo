@@ -7,13 +7,11 @@ const dayDefaultStyle: React.CSSProperties = {
 };
 const dayHoverStyle: React.CSSProperties = {
   color: '#FFF',
-  borderRadius: '15px',
-  background: 'rgba(173, 0, 255, 0.2)',
+  background: 'rgba(7, 7, 7, 0.2)',
   cursor: 'pointer',
 };
 const dayClickedStyle: React.CSSProperties = {
   color: '#FFF',
-  borderRadius: '15px',
   background: '#AD00FF',
 };
 const dayReservedStyle: React.CSSProperties = {
@@ -21,7 +19,6 @@ const dayReservedStyle: React.CSSProperties = {
 };
 const dayTodayStyle: React.CSSProperties = {
   color: '#AD00FF',
-  borderRadius: '15px',
   border: '3px solid #AD00FF',
 };
 const dayDisabledStyle: React.CSSProperties = {

@@ -13,6 +13,7 @@ import { UserProvider } from './context/userContext';
 const GlobalStyle = createGlobalStyle`
   ${reset}
   /* other styles */
+box-sizing: border-box;
 
   body {
   margin: 0;

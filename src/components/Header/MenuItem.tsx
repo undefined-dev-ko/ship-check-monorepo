@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { COLOR } from '../../styles/constants';
+import { media } from '../../styles/media';
 
 const Container = styled.button`
   background-color: ${COLOR.primaryPurple};
@@ -10,6 +11,11 @@ const Container = styled.button`
   font-size: 30px;
   font-weight: 600;
   cursor: pointer;
+
+  ${media.mobile`
+    padding: 8px 12px;
+    font-size: 18px;
+  `};
 `;
 
 interface MenuItemProps {

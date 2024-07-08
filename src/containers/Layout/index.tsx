@@ -7,7 +7,9 @@ function Layout({ children }: { children: React.ReactNode }) {
   return (
     <DefaultLayout>
       <Header />
+
       {children}
+
       <Footer />
     </DefaultLayout>
   );

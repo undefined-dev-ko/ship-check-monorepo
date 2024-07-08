@@ -63,6 +63,7 @@ function Calendar({
   return (
     <Styled.Container>
       <Styled.Header>{headerTitle}</Styled.Header>
+
       <Styled.Content>
         <Styled.RoundBox
           className="round_box"
