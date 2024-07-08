@@ -7,8 +7,14 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import MainPage from './pages/mainPage';
 import AuthGoogle from './pages/auth/google';
 // import AuthTest from './pages/auth/test';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import {
+  QueryClient,
+  QueryClientProvider,
+  useQueryErrorResetBoundary,
+} from '@tanstack/react-query';
 import { UserProvider } from './context/userContext';
+import { ErrorBoundary } from 'react-error-boundary';
+import ErrorPage from './pages/errorPage';
 
 const GlobalStyle = createGlobalStyle`
   ${reset}
@@ -36,22 +42,22 @@ box-sizing: border-box;
   }
 `;
 
-// Create a client
-const queryClient = new QueryClient();
-
 function App() {
+  const { reset } = useQueryErrorResetBoundary();
   return (
     <React.Fragment>
       <Providers>
         <GlobalStyle />
         <Router>
           <Suspense fallback={<div>Loading...</div>}>
-            <Routes>
-              <Route path="/" element={<MainPage />} />
-              <Route path="/auth/google" element={<AuthGoogle />} />
-              {/* <Route path="/auth/test" element={<AuthTest />} /> */}
-              <Route path="/*" element={<MainPage />} />
-            </Routes>
+            <ErrorBoundary FallbackComponent={ErrorPage} onReset={reset}>
+              <Routes>
+                <Route path="/" element={<MainPage />} />
+                <Route path="/auth/google" element={<AuthGoogle />} />
+                {/* <Route path="/auth/test" element={<AuthTest />} /> */}
+                <Route path="/*" element={<MainPage />} />
+              </Routes>
+            </ErrorBoundary>
           </Suspense>
         </Router>
       </Providers>
@@ -60,6 +66,13 @@ function App() {
 }
 
 function Providers({ children }: { children: React.ReactNode }) {
+  const queryClient = new QueryClient({
+    defaultOptions: {
+      queries: { retry: 0, throwOnError: true },
+      mutations: { throwOnError: true },
+    },
+  });
+
   return (
     <UserProvider>
       <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
