@@ -4,7 +4,7 @@ import Styled from './index.styles';
 function Reserved({
   isHovering,
   isMine,
-  isPassed,
+  isActivated,
   handleMouseOver,
   handleMouseOut,
   name,
@@ -14,7 +14,7 @@ function Reserved({
 }: {
   isHovering: boolean;
   isMine: boolean;
-  isPassed: boolean;
+  isActivated: boolean;
   handleMouseOver: () => void;
   handleMouseOut: () => void;
   name: string;
@@ -22,7 +22,7 @@ function Reserved({
   onClickCancelButton: () => void;
   isPendingCancel: boolean;
 }) {
-  const hoverActive = isMine && isHovering && !isPassed;
+  const hoverActive = isMine && isHovering && isActivated;
   return (
     <Styled.Container
       className="reserved"

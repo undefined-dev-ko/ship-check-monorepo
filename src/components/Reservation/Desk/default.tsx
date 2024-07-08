@@ -5,7 +5,7 @@ import Loading from '../../Loading';
 function Default({
   deskNo,
   isHovering,
-  isPassed,
+  isActivated,
   handleMouseOver,
   handleMouseOut,
   onReserveButtonClick,
@@ -14,14 +14,14 @@ function Default({
 }: {
   deskNo: number;
   isHovering: boolean;
-  isPassed: boolean;
+  isActivated: boolean;
   handleMouseOver: () => void;
   handleMouseOut: () => void;
   items?: Item[];
   onReserveButtonClick: () => void;
   isPendingCreate: boolean;
 }) {
-  const hoverActive = isHovering && !isPassed;
+  const hoverActive = isHovering && isActivated;
   return (
     <Styled.Container
       className="default"
