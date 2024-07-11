@@ -30,7 +30,7 @@ function MainPage() {
   } = useRetrieveReservationList({
     startReservedAt: dayjs(baseDate).subtract(1, 'week').format('YYYY-MM-DD'),
     endReservedAt: dayjs(baseDate).add(1, 'week').format('YYYY-MM-DD'),
-    enabled: !!myself,
+    enabled: !!myself && isLoggedIn,
   });
 
   const reservedDateList = reservationListForDateRange?.list
