@@ -38,7 +38,14 @@ function Notice() {
       <div>
         <p>
           FE 팀 매달 마지막 주 목요일 전체 출근 / BE 팀 매달 첫째 주 목요일 전체
-          출근
+          출근 /
+          <a
+            href="https://forms.gle/SiSxK8rj38y4btVn6"
+            target="_blank"
+            rel="noreferrer"
+          >
+            오픈베타(07-12~) 설문지
+          </a>
         </p>
       </div>
     </Container>
