@@ -56,7 +56,7 @@ function MainPage() {
               weekList={weekList}
               onDateClick={(date: Date) => {
                 setClickedDate(date);
-                refetchReservationListForDateRange();
+                isLoggedIn && refetchReservationListForDateRange();
               }}
             />
 
