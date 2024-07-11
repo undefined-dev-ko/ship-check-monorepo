@@ -38,15 +38,16 @@ export const getDateStyle = (
   if (isClicked) {
     return dayClickedStyle;
   }
+  if (isDisabled) {
+    return dayDisabledStyle;
+  }
   if (isReserved) {
     return dayReservedStyle;
   }
   if (isToday) {
     return dayTodayStyle;
   }
-  if (isDisabled) {
-    return dayDisabledStyle;
-  }
+
   return dayDefaultStyle;
 };
 
