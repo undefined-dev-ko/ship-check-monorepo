@@ -40,3 +40,12 @@ export type CancelReservationRequest = {
   seatId: number;
   reservedAt: string;
 };
+
+export type RetrieveReservationListRequest = {
+  startReservedAt: string;
+  endReservedAt: string;
+};
+
+export type RetrieveReservationListResponse = {
+  list: Reservation[];
+};

@@ -7,6 +7,8 @@ import {
   CreateReservationResponse,
   GetReservationListResponse,
   CancelReservationRequest,
+  RetrieveReservationListRequest,
+  RetrieveReservationListResponse,
 } from './interfaces';
 import useAppQuery from '../hooks/useAppQuery';
 import useAppMutation from '../hooks/useAppMutation';
@@ -74,6 +76,24 @@ function useCancelReservation({ onSuccess }: { onSuccess?: () => void }) {
   });
 }
 
+function useRetrieveReservationList({
+  startReservedAt,
+  endReservedAt,
+  enabled,
+}: RetrieveReservationListRequest & {
+  enabled?: boolean;
+}) {
+  return useAppQuery<RetrieveReservationListResponse>({
+    queryKey: ['retrieveReservations', startReservedAt, endReservedAt],
+    requestOptions: {
+      method: 'GET',
+      path: `/reservation`,
+      params: { startReservedAt, endReservedAt },
+    },
+    enabled,
+  });
+}
+
 export {
   useGetAllSeat,
   useGetUser,
@@ -81,4 +101,5 @@ export {
   useGetTokenPairWithGoogleAuth,
   useCreateReservation,
   useCancelReservation,
+  useRetrieveReservationList,
 };
