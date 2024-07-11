@@ -60,7 +60,7 @@ function MainPage() {
               }}
             />
 
-            {isLoggedIn && (
+            {isLoggedIn && myself && (
               <Reservation currentDate={clickedDate} myself={myself} />
             )}
           </Styled.ContentBody>
