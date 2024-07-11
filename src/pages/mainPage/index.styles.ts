@@ -3,7 +3,7 @@ import { media } from '../../styles/media';
 
 const Container = styled.div`
   background-color: #f4f4f4;
-  padding: 80px 80px 120px;
+  padding: 40px 40px 80px;
 
   ${media.mobile`
   padding: 25px 20px;
@@ -13,7 +13,7 @@ const Container = styled.div`
 const MainPageContainer = styled.div`
   margin: 0 auto;
   width: 1280px;
-  gap: 40px;
+  gap: 20px;
 
   display: flex;
   flex-direction: column;

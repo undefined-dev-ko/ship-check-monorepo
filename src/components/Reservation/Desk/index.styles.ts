@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { COLOR } from '../../../styles/constants';
 import { media } from '../../../styles/media';
 
@@ -11,10 +11,10 @@ const Container = styled.li<{ $isHovering?: boolean; isMine?: boolean }>`
   height: 120px;
   border-radius: 16px;
   color: ${COLOR.white};
-  box-shadow: ${(props) =>
-    props.isMine && !props.$isHovering
-      ? `0 0 0 8px ${COLOR.primaryGreen} inset`
-      : ''};
+  cursor: default;
+
+  background-color: ${(props) =>
+    props.isMine && !props.$isHovering ? `#3443c9` : ''};
 
   ${media.mobile`
   width: 90px;
@@ -51,12 +51,27 @@ const Container = styled.li<{ $isHovering?: boolean; isMine?: boolean }>`
   &.fixed {
     background-color: ${COLOR.primaryGray};
   }
+
   &.reserved {
-    ${(props) =>
-      props.$isHovering && props.isMine
-        ? ` background: ${COLOR.primaryRed}; cursor: pointer; `
-        : `background: ${COLOR.primaryPurple}; `}
+    ${(props) => {
+      if (!props.isMine)
+        return css`
+          background: #757cbf;
+        `;
+
+      if (props.$isHovering)
+        return css`
+          background: ${COLOR.primaryRed};
+          cursor: pointer;
+        `;
+
+      return css`
+        background: ${COLOR.primaryPurple};
+        cursor: pointer;
+      `;
+    }}
   }
+
   &.default {
     ${(props) =>
       props.$isHovering

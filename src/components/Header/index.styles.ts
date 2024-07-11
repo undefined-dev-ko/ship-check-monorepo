@@ -19,7 +19,7 @@ const Header = styled.header`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  padding: 24px 30px;
+  padding: 18px 25px;
   white-space: nowrap;
 
   ${media.mobile`
@@ -34,8 +34,8 @@ const Logo = styled.div`
   gap: 8px;
 
   .logo-img {
-    width: 50px;
-    height: 50px;
+    width: 30px;
+    height: 30px;
     background-image: url('/logo.png');
     background-size: cover;
 
@@ -47,7 +47,7 @@ const Logo = styled.div`
 
   .logo-txt-en,
   .logo-txt-kr {
-    font-size: 30px;
+    font-size: 22px;
     font-weight: 700;
 
     ${media.mobile`
@@ -61,8 +61,8 @@ const Logo = styled.div`
 `;
 
 const ProfileImage = styled.div<{ user?: User }>`
-  width: 60px;
-  height: 60px;
+  width: 30px;
+  height: 30px;
   background-color: #fff;
   border-radius: 100%;
   background-image: url(${({ user }) => user.photo});

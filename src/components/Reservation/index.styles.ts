@@ -6,12 +6,9 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 40px;
-  padding: 60px;
+  padding: 40px 40px 0 40px;
   background-color: ${COLOR.white};
-
   width: 1160px;
-  height: 564px;
 
   ${media.mobile`
    width: 100%;

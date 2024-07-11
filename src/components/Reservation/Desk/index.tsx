@@ -43,7 +43,9 @@ function Desk({
   // 예약 O
   else if (reservation) {
     const { name, team } = reservation.user;
+
     const isMine = myself ? myself.id === reservation.user.id : false;
+
     return (
       <Reserved
         isHovering={isHovering}

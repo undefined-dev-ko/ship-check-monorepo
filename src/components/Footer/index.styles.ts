@@ -9,9 +9,9 @@ const Container = styled.div`
 
 const Footer = styled.footer`
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: space-between;
-  padding: 80px;
+  padding: 50px;
   color: ${COLOR.white};
   word-break: keep-all;
   white-space: nowrap;
@@ -24,6 +24,7 @@ const Footer = styled.footer`
     display: flex;
     flex-direction: column;
     gap: 40px;
+    flex: 1;
 
     ${media.mobile`
     gap: 20px;
@@ -82,7 +83,7 @@ const MemberList = styled.div`
 
 const Title = styled.div`
   color: ${COLOR.white};
-  font-size: 40px;
+  font-size: 22px;
   font-weight: 700;
 
   ${media.mobile`
@@ -91,8 +92,7 @@ const Title = styled.div`
 `;
 
 const CopyRight = styled.p`
-  display: flex;
-  align-items: flex-end;
+  text-align: right;
   color: ${COLOR.gray};
   width: 100%;
 

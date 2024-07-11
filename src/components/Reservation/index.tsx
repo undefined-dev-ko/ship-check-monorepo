@@ -99,8 +99,8 @@ function Reservation({
 
   const [selectedSeatId, setSelectedSeatId] = useState<number | null>(null);
   const isActivated = checkIfDayAfterToday(currentDate) && !selectedSeatId;
-  const hasMadeReservation = !!reservationList.find(
-    (e) => e.user.id === myself.id,
+  const hasMadeReservation = Boolean(
+    reservationList?.find((e) => e.user.id === myself.id),
   );
 
   const { mutate: createReservationMutate, isPending: isPendingCreate } =
