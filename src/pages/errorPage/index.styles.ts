@@ -4,6 +4,7 @@ import { COLOR } from '../../styles/constants';
 const Container = styled.div`
   background-color: #f4f4f4;
   padding: 80px 80px 120px;
+  height: 100%;
 `;
 
 const Content = styled.div`

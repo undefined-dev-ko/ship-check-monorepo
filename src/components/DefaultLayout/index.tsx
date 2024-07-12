@@ -3,6 +3,7 @@ import styled from 'styled-components';
 
 const DefaultLayoutWrapper = styled.div`
   width: 100%;
+  height: 100vh;
   overflow: hidden;
   min-width: 360px;
 `;
