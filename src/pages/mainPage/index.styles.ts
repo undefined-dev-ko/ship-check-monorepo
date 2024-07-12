@@ -4,7 +4,7 @@ import { media } from '../../styles/media';
 const Container = styled.div`
   background-color: #f4f4f4;
   padding: 40px 40px 80px;
-  height: 100%;
+  min-height: 100%;
 
   ${media.mobile`
   padding: 25px 20px;

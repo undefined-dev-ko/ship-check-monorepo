@@ -5,7 +5,8 @@ import Footer from '../../components/Footer';
 import styled from 'styled-components';
 
 const ContentsContainer = styled.div`
-  height: calc(100vh - 363px);
+  min-height: calc(100vh - 363px);
+  background-color: #f4f4f4;
 `;
 
 function Layout({ children }: { children: React.ReactNode }) {
