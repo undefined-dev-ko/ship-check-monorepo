@@ -7,7 +7,7 @@ const dayDefaultStyle: React.CSSProperties = {
 };
 const dayHoverStyle: React.CSSProperties = {
   color: '#FFF',
-  background: 'rgba(7, 7, 7, 0.2)',
+  background: 'rgba(173, 0, 255, 0.2)',
   cursor: 'pointer',
 };
 const dayClickedStyle: React.CSSProperties = {
