@@ -19,6 +19,7 @@ async function bootstrap() {
       "https://ship-check-fe-prv.vercel.app",
       "https://ship-check-fe-prv.vercel.app/",
       "https://check.ship-da.com",
+      "https://check.ship-da.com/",
     ],
     methods: "GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS",
     credentials: true,
