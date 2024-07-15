@@ -18,6 +18,7 @@ async function bootstrap() {
       "http://localhost:3000",
       "https://ship-check-fe-prv.vercel.app",
       "https://ship-check-fe-prv.vercel.app/",
+      "https://check.ship-da.com",
     ],
     methods: "GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS",
     credentials: true,
