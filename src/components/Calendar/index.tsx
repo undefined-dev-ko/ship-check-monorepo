@@ -47,18 +47,10 @@ function Calendar({
   }, 0);
 
   const onPrevButtonClick = () => {
-    if (weekListIndex === 0) {
-      setBaseDate(dayjs(baseDate).subtract(1, 'month').endOf('month').toDate());
-    } else {
-      setBaseDate(dayjs(baseDate).subtract(1, 'week').endOf('week').toDate());
-    }
+    setBaseDate(dayjs(baseDate).subtract(1, 'month').endOf('month').toDate());
   };
   const onNextButtonClick = () => {
-    if (weekList.length === weekListIndex + 1) {
-      setBaseDate(dayjs(baseDate).add(1, 'month').startOf('month').toDate());
-    } else {
-      setBaseDate(dayjs(baseDate).add(1, 'week').startOf('week').toDate());
-    }
+    setBaseDate(dayjs(baseDate).add(1, 'month').startOf('month').toDate());
   };
 
   const onTodayButtonClick = () => {
@@ -74,23 +66,31 @@ function Calendar({
   return (
     <Styled.Container>
       <Styled.Header>
-        <div className="center">{headerTitle}</div>
-
-        <button className="right_reset_button" onClick={onTodayButtonClick}>
-          오늘
-        </button>
+        <div className="title">{headerTitle}</div>
+        <div className="arrow_navigator">
+          <Styled.RoundBox
+            className="round_box"
+            onClick={() => {
+              onPrevButtonClick();
+            }}
+          >
+            <LeftArrowIcon />
+          </Styled.RoundBox>
+          <button className="right_reset_button" onClick={onTodayButtonClick}>
+            오늘
+          </button>
+          <Styled.RoundBox
+            className="round_box"
+            onClick={() => {
+              onNextButtonClick();
+            }}
+          >
+            <RightArrowIcon />
+          </Styled.RoundBox>
+        </div>
       </Styled.Header>
 
       <Styled.Content>
-        <Styled.RoundBox
-          className="round_box"
-          onClick={() => {
-            onPrevButtonClick();
-          }}
-        >
-          <LeftArrowIcon />
-        </Styled.RoundBox>
-
         <div>
           {/** 요일명 출력 */}
           <Styled.FlexHorizontal>
@@ -98,41 +98,39 @@ function Calendar({
               <DayBox dayName={v} key={i} />
             ))}
           </Styled.FlexHorizontal>
-          <Styled.FlexHorizontal
-            style={isFirstWeekOfMonth ? { justifyContent: 'flex-end' } : {}}
-          >
-            {/** 일 출력 */}
-            {weekList[weekListIndex].map((v) => {
-              const date = v.date;
-              const dateYYYYMMDD = dateToYYYYMMDD(date);
-              return (
-                <DateBox
-                  date={date}
-                  onClick={() => {
-                    onDateClick(date);
-                  }}
-                  isClicked={dateYYYYMMDD === dateToYYYYMMDD(clickedDate)}
-                  isToday={dateYYYYMMDD === dateToYYYYMMDD(todayDate)}
-                  isDisabled={
-                    dateYYYYMMDD < dateToYYYYMMDD(todayDate) ||
-                    [0, 6].includes(dayjs(date).tz('Asia/Seoul').day())
-                  }
-                  isReserved={reservedDateYYYYMMDDList.includes(dateYYYYMMDD)}
-                  key={v.date.toString()}
-                />
-              );
-            })}
-          </Styled.FlexHorizontal>
-        </div>
 
-        <Styled.RoundBox
-          className="round_box"
-          onClick={() => {
-            onNextButtonClick();
-          }}
-        >
-          <RightArrowIcon />
-        </Styled.RoundBox>
+          {weekList.map((week, i) => {
+            return (
+              <Styled.FlexHorizontal
+                key={i}
+                style={i === 0 ? { justifyContent: 'flex-end' } : {}}
+              >
+                {week.map((day) => {
+                  const date = day.date;
+                  const dateYYYYMMDD = dateToYYYYMMDD(date);
+                  return (
+                    <DateBox
+                      date={date}
+                      onClick={() => {
+                        onDateClick(date);
+                      }}
+                      isClicked={dateYYYYMMDD === dateToYYYYMMDD(clickedDate)}
+                      isToday={dateYYYYMMDD === dateToYYYYMMDD(todayDate)}
+                      isDisabled={
+                        dateYYYYMMDD < dateToYYYYMMDD(todayDate) ||
+                        [0, 6].includes(dayjs(date).tz('Asia/Seoul').day())
+                      }
+                      isReserved={reservedDateYYYYMMDDList.includes(
+                        dateYYYYMMDD,
+                      )}
+                      key={day.date.toString()}
+                    />
+                  );
+                })}
+              </Styled.FlexHorizontal>
+            );
+          })}
+        </div>
       </Styled.Content>
     </Styled.Container>
   );

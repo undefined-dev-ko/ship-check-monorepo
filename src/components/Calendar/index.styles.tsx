@@ -11,12 +11,12 @@ const Container = styled.div`
 const Header = styled.div`
   width: 100%;
   font-family: Poppins;
-  font-size: 40px;
+  font-size: 30px;
   font-weight: 600;
   line-height: 60px;
   text-align: center;
   display: flex;
-  justify-content: end;
+  justify-content: space-between;
   align-items: center;
   position: relative;
 
@@ -25,10 +25,12 @@ const Header = styled.div`
     line-height: 1.5;
   `};
 
-  .center {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
+  .arrow_navigator {
+    display: flex;
+  }
+
+  .title {
+    padding-left: 10px;
   }
 
   button.right_reset_button {
@@ -36,21 +38,24 @@ const Header = styled.div`
     justify-content: center;
     align-items: center;
 
-    width: 70px;
     box-sizing: border-box;
-    background:#3443c9;
+    background: #3443c9;
     border: 0;
     box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.2);
     border-radius: 12px;
     padding: 8px;
     color: #fff;
-  
+
     cursor: pointer;
-    font-size: 18px;
+    font-size: 20px;
     font-weight: bold;
 
+    ${media.mobile`
+    font-size: 12px;
+  `};
+
     &:hover {
-      background:#515fe0;
+      background: #515fe0;
     }
   }
 `;
@@ -77,8 +82,8 @@ const FlexHorizontal = styled.div`
 `;
 
 const RoundBox = styled.div`
-  width: 58px;
-  height: 58px;
+  width: 48px;
+  height: 48px;
   box-sizing: border-box;
   background: #ffffff;
   border: 3px solid #f6f6f6;

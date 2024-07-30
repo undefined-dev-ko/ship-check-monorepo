@@ -28,8 +28,8 @@ function MainPage() {
     data: reservationListForDateRange,
     refetch: refetchReservationListForDateRange,
   } = useRetrieveReservationList({
-    startReservedAt: dayjs(baseDate).subtract(1, 'week').format('YYYY-MM-DD'),
-    endReservedAt: dayjs(baseDate).add(1, 'week').format('YYYY-MM-DD'),
+    startReservedAt: dayjs(baseDate).startOf('month').format('YYYY-MM-DD'),
+    endReservedAt: dayjs(baseDate).endOf('month').format('YYYY-MM-DD'),
     enabled: !!myself && isLoggedIn,
   });
 

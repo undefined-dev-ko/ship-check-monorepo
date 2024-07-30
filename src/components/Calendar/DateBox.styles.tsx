@@ -2,8 +2,8 @@ import styled from 'styled-components';
 import { media } from '../../styles/media';
 
 const DateBox = styled.div`
-  width: 68px;
-  height: 68px;
+  width: 54px;
+  height: 54px;
   display: flex;
   justify-content: center;
   align-items: center;
