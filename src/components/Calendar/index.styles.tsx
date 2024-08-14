@@ -5,11 +5,17 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   background-color: #fff;
-  gap: 16px;
+  gap: 11px;
+
+  padding: 20px;
+  border-radius: 24px;
+
+  ${media.mobile`
+    border-radius: 12px;
+  `};
 `;
 
 const Header = styled.div`
-  width: 100%;
   font-family: Poppins;
   font-size: 30px;
   font-weight: 600;

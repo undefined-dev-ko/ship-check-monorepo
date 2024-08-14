@@ -2,14 +2,14 @@ import styled from 'styled-components';
 import { media } from '../../styles/media';
 
 const DayBox = styled.div`
-  width: 54px;
-  height: 54px;
+  width: 49px;
+  height: 49px;
 
   font-family: 'Poppins';
   font-style: normal;
   font-weight: 700;
-  font-size: 26px;
-  line-height: 39px;
+  font-size: 21px;
+  line-height: 34px;
   display: flex;
   justify-content: center;
   align-items: center;

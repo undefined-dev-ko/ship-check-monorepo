@@ -9,6 +9,7 @@ import {
   CancelReservationRequest,
   RetrieveReservationListRequest,
   RetrieveReservationListResponse,
+  GetJudgementsResponse,
 } from './interfaces';
 import useAppQuery from '../hooks/useAppQuery';
 import useAppMutation from '../hooks/useAppMutation';
@@ -94,6 +95,17 @@ function useRetrieveReservationList({
   });
 }
 
+function useGetJudgements({ enabled }: { enabled?: boolean }) {
+  return useAppQuery<GetJudgementsResponse>({
+    queryKey: ['getJudgements'],
+    requestOptions: {
+      method: 'GET',
+      path: `/reservation/judgements`,
+    },
+    enabled,
+  });
+}
+
 export {
   useGetAllSeat,
   useGetUser,
@@ -102,4 +114,5 @@ export {
   useCreateReservation,
   useCancelReservation,
   useRetrieveReservationList,
+  useGetJudgements,
 };

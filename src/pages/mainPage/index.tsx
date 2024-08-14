@@ -6,10 +6,17 @@ import Layout from '../../containers/Layout';
 import { useTokenAuth } from '../../hooks/useTokenAuth';
 import useWeekList from '../../hooks/useWeekList';
 import Styled from './index.styles';
-import { useGetUser, useRetrieveReservationList } from '../../api/query';
+import {
+  useGetJudgements,
+  useGetUser,
+  useRetrieveReservationList,
+} from '../../api/query';
 import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
 import timezone from 'dayjs/plugin/timezone';
+import SimpleSlider from '../../components/Slider';
+import Ranking from '../../components/Ranking';
+import ElmoJudgement from '../../components/ElmoJudgement';
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
@@ -33,6 +40,11 @@ function MainPage() {
     enabled: !!myself && isLoggedIn,
   });
 
+  const { data: judgementsResponse, refetch: refetchJudgements } =
+    useGetJudgements({
+      enabled: isLoggedIn,
+    });
+
   const reservedDateList = reservationListForDateRange?.list
     .filter((v) => v.userId === myself.id)
     .map((v) => dayjs(v.reservedAt).tz('Asia/Seoul', true).toDate());
@@ -42,24 +54,36 @@ function MainPage() {
       <Styled.Container>
         <Styled.MainPageContainer>
           <Styled.ContentHeader>
-            <Notice />
+            <Styled.HeaderLeft>
+              <Notice />
+              <SimpleSlider
+                contents={[
+                  <Ranking />,
+                  <ElmoJudgement
+                    nameList={judgementsResponse?.userNames || []}
+                  />,
+                ]}
+              />
+            </Styled.HeaderLeft>
+            <Styled.HeaderRight>
+              <Calendar
+                todayDate={todayDate}
+                clickedDate={clickedDate}
+                baseDate={baseDate}
+                reservedDateList={reservedDateList}
+                setBaseDate={setBaseDate}
+                dayNames={dayNames}
+                weekList={weekList}
+                onDateClick={(date: Date) => {
+                  setClickedDate(date);
+                  isLoggedIn && refetchReservationListForDateRange();
+                  isLoggedIn && refetchJudgements();
+                }}
+              />
+            </Styled.HeaderRight>
           </Styled.ContentHeader>
 
           <Styled.ContentBody>
-            <Calendar
-              todayDate={todayDate}
-              clickedDate={clickedDate}
-              baseDate={baseDate}
-              reservedDateList={reservedDateList}
-              setBaseDate={setBaseDate}
-              dayNames={dayNames}
-              weekList={weekList}
-              onDateClick={(date: Date) => {
-                setClickedDate(date);
-                isLoggedIn && refetchReservationListForDateRange();
-              }}
-            />
-
             {isLoggedIn && myself && (
               <Reservation currentDate={clickedDate} myself={myself} />
             )}

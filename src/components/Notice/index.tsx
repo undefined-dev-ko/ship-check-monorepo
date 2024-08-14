@@ -9,6 +9,10 @@ const Container = styled.section`
   align-items: center;
   background-color: ${COLOR.white};
   word-break: keep-all;
+  gap: 10px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border-radius: 24px;
 
   ${media.mobile`
   width: 100%;
@@ -16,7 +20,6 @@ const Container = styled.section`
   font-size: 12px;
   line-height: 1.5;
   text-align: center;
-  gap: 10px;
   `};
 
   .notice-icon {
@@ -37,14 +40,16 @@ function Notice() {
 
       <div>
         <p>
-          FE 팀 매달 마지막 주 목요일 전체 출근 / BE 팀 매달 첫째 주 목요일 전체
-          출근 /
+          * FE 팀 매달 마지막 주 목요일 전체 출근 / BE 팀 매달 첫째 주 목요일
+          전체 출근
+        </p>
+        <p>
           <a
             href="https://forms.gle/SiSxK8rj38y4btVn6"
             target="_blank"
             rel="noreferrer"
           >
-            오픈베타(07-12~) 설문지
+            * 오픈베타(07-12~) 설문지
           </a>
         </p>
       </div>

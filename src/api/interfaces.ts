@@ -49,3 +49,7 @@ export type RetrieveReservationListRequest = {
 export type RetrieveReservationListResponse = {
   list: Reservation[];
 };
+
+export type GetJudgementsResponse = {
+  userNames: string[];
+};
