@@ -83,11 +83,9 @@ function MainPage() {
             </Styled.HeaderRight>
           </Styled.ContentHeader>
 
-          <Styled.ContentBody>
-            {isLoggedIn && myself && (
-              <Reservation currentDate={clickedDate} myself={myself} />
-            )}
-          </Styled.ContentBody>
+          {isLoggedIn && myself && (
+            <Reservation currentDate={clickedDate} myself={myself} />
+          )}
         </Styled.MainPageContainer>
       </Styled.Container>
     </Layout>

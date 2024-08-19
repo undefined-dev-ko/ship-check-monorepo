@@ -3,38 +3,44 @@ import { COLOR } from '../../styles/constants';
 import { media } from '../../styles/media';
 
 const Container = styled.div`
+  background-color: ${COLOR.white};
+  border-radius: 24px;
+  padding: 40px;
+
+  ${media.mobile`
+   padding: 20px;
+  `};
+`;
+
+const SeatContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 40px 40px 0 40px;
-  background-color: ${COLOR.white};
-  width: 1160px;
+  gap: 12px;
+  & > *:nth-child(2n) {
+    margin-bottom: 60px;
+    ${media.mobile`
+        margin-bottom: 20px;
+  `};
+  }
 
   ${media.mobile`
-   width: 100%;
-   height: 100%;
-   padding: 20px 0 0 0;
-   justify-content: center;
+  // @see https://mingg123.tistory.com/223
+  // #학습 align-items center 가 적용되면 왼쪽이 짤린다. 따라서 start 적용 (스크롤 시작점이 잘못적용되는 이슈)
+  align-items: start;
+  overflow-x: scroll;
+  -webkit-overflow-scrolling: touch;
   `};
+`;
 
-  .seat-list {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 12px;
+const SeatList = styled.ul`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
 
-    ${media.mobile`
- flex-direction: column;
- height: 350px;
+  ${media.mobile`
+    flex-wrap: nowrap;
   `};
-
-    & > li:nth-child(n + 6):nth-child(-n + 10) {
-      margin-bottom: 60px;
-
-      ${media.mobile`
-        margin-bottom: 0;
-  `};
-    }
-  }
 `;
 
 const TitleDate = styled.h1`
@@ -43,4 +49,4 @@ const TitleDate = styled.h1`
   font-weight: 600;
 `;
 
-export default { Container, TitleDate };
+export default { Container, SeatContainer, SeatList, TitleDate };

@@ -39,10 +39,8 @@ const ContentHeader = styled.div`
 const HeaderLeft = styled.div`
   display: flex;
   flex-direction: column;
-  /* justify-content: space-between; */
   gap: 20px;
 
-  /* width: 100%; */
   height: 100%;
   ${media.mobile`
       display: none;
@@ -51,26 +49,10 @@ const HeaderLeft = styled.div`
 
 const HeaderRight = styled.div``;
 
-const ContentBody = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background-color: #ffffff;
-
-  border-radius: 24px;
-  padding: 60px;
-
-  ${media.mobile`
-   padding: 20px 10px;
-   border-radius: 12px;
-  `};
-`;
-
 export default {
   Container,
   MainPageContainer,
   ContentHeader,
   HeaderLeft,
   HeaderRight,
-  ContentBody,
 };
