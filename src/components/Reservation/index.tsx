@@ -48,6 +48,19 @@ function Reservation({
       },
     },
     {
+      id: 12,
+      deskNo: 12,
+      reservations: [],
+      fixedUser: {
+        id: 12,
+        name: '전상훈',
+        team: teamPo,
+        email: '',
+        photo: '',
+        reservations: [],
+      },
+    },
+    {
       id: 13,
       deskNo: 13,
       reservations: [],
