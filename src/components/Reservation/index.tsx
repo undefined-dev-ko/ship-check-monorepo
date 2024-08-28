@@ -173,11 +173,13 @@ function Reservation({
             .map((_, i) => i + 1) // 1 ~ 5 까지의 좌석
             .map((deskNo, i) => renderDesk(deskNo, i))}
         </Styled.SeatList>
+
         <Styled.SeatList>
           {[...Array(5)]
             .map((_, i) => i + 6) // 6 ~ 10 까지의 좌석
             .map((deskNo, i) => renderDesk(deskNo, i))}
         </Styled.SeatList>
+
         <Styled.SeatList>
           {[...Array(5)]
             .map((_, i) => i + 11) // 11 ~ 15 까지의 좌석

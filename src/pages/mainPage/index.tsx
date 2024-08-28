@@ -17,6 +17,8 @@ import timezone from 'dayjs/plugin/timezone';
 import SimpleSlider from '../../components/Slider';
 import Ranking from '../../components/Ranking';
 import ElmoJudgement from '../../components/ElmoJudgement';
+import useCheckIsMobile from '../../hooks/useCheckIsMobile';
+import MobileReservation from '../../components/MobileReservation';
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
@@ -27,6 +29,8 @@ function MainPage() {
   const todayDate = new Date();
 
   const { isLoggedIn } = useTokenAuth();
+  const { isMobile } = useCheckIsMobile();
+
   const { data: myself } = useGetUser({
     enabled: !!isLoggedIn,
   });
@@ -83,9 +87,13 @@ function MainPage() {
             </Styled.HeaderRight>
           </Styled.ContentHeader>
 
-          {isLoggedIn && myself && (
-            <Reservation currentDate={clickedDate} myself={myself} />
-          )}
+          {isLoggedIn &&
+            myself &&
+            (isMobile ? (
+              <MobileReservation currentDate={clickedDate} userInfo={myself} />
+            ) : (
+              <Reservation currentDate={clickedDate} myself={myself} />
+            ))}
         </Styled.MainPageContainer>
       </Styled.Container>
     </Layout>
