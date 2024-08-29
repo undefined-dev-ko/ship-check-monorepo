@@ -6,7 +6,7 @@ const Container = styled.div`
 
   .slick-list {
     width: 850px;
-    height: 310px;
+    height: 325px;
   }
 `;
 

@@ -4,7 +4,7 @@ import { COLOR } from '../../../styles/constants';
 const Container = styled.div`
   position: relative;
   width: 170px;
-  height: 310px;
+  height: 325px;
 `;
 
 const Icon = styled.div`

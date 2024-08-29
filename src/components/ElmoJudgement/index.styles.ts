@@ -8,7 +8,7 @@ const Container = styled.div`
 
 const BackgroundImage = styled.img`
   width: 100%;
-  height: 310px;
+  height: 325px;
   object-fit: fill;
   border-radius: 24px;
 `;
