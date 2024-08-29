@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { media } from '../../styles/media';
 
 const Container = styled.div`
   display: grid;
@@ -11,6 +12,10 @@ const Container = styled.div`
     border-radius: 100vmin;
     overflow: hidden;
     padding: 1.25rem;
+
+    ${media.mobile`
+      padding: 0.5rem;
+    `};
 
     &::before {
       content: '';
@@ -27,6 +32,11 @@ const Container = styled.div`
     margin: auto;
     transform-origin: center center;
     animation: 2s linear 0s infinite rotate;
+
+    ${media.mobile`
+      width: 65%;
+      height: 65%;
+    `};
   }
 
   .path {

@@ -11,6 +11,7 @@ import { fixedSeatList } from '../../constants/fixedSeatList';
 import SeatItem from './SeatItem';
 import { useState } from 'react';
 import useClickOutsideOfElement from '../../hooks/useClickOutsideOfElement';
+import { checkIfDayAfterToday } from '../../util/date';
 
 export default function MobileReservation({
   currentDate,
@@ -48,7 +49,19 @@ export default function MobileReservation({
       },
     });
 
+  const alreadyReservedSeat = reservationList.find(
+    (reservation) => reservation.userId === userInfo?.id,
+  );
+
+  const isAfterToday = checkIfDayAfterToday(currentDate);
+
   const handleSelectSeat = (seatId: number) => {
+    // 오늘 이전 날짜는 선택 불가
+    if (!isAfterToday) return;
+
+    // 이미 예약한 좌석이 있는 경우, 예약한 시트의 선택(취소)외에는 선택 방지 (중복 예약방지)
+    if (alreadyReservedSeat && alreadyReservedSeat.seatId !== seatId) return;
+
     setSelectedSeatId(seatId);
   };
 

@@ -64,8 +64,10 @@ function SeatItem({
           isCancelUI={isSelected}
           isPending={isPending}
           isMyReservation={isMyReservation}
-          cancelReservation={() => cancelReservation(seat?.id)}
-          selectSeat={() => handleSelectSeat(seat?.id)}
+          cancelReservation={() =>
+            isMyReservation && cancelReservation(seat?.id)
+          }
+          selectSeat={() => isMyReservation && handleSelectSeat(seat?.id)}
         />
       )}
     </>
