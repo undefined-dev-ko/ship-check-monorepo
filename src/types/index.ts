@@ -60,3 +60,9 @@ export interface Seat {
 }
 
 export type TokenPair = { accessToken: string; refreshToken: string };
+
+export type Rank = {
+  id: number;
+  user: User;
+  count: number;
+};

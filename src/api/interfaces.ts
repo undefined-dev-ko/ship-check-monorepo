@@ -1,4 +1,4 @@
-import { Reservation, Seat, User } from '../types';
+import { Rank, Reservation, Seat, User } from '../types';
 
 export type GetTokenPairWithGoogleAuthRequest = {
   authorizationCode?: string;
@@ -52,4 +52,13 @@ export type RetrieveReservationListResponse = {
 
 export type GetJudgementsResponse = {
   userNames: string[];
+};
+
+export type GetRankingSummaryResponse = {
+  // 출석왕 배열크기 3
+  attendance?: Rank[];
+  // 결석왕
+  ghost?: Rank;
+  // 취소왕
+  cancel?: Rank;
 };

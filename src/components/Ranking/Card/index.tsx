@@ -8,7 +8,7 @@ interface RankingCardProps {
 
 function RankingCard(props: RankingCardProps) {
   const { rankType, rank } = props;
-  const { name, team, photo } = rank.user;
+  const { name, team, photo } = rank?.user ?? {};
 
   return (
     <Styled.Container>
@@ -19,7 +19,7 @@ function RankingCard(props: RankingCardProps) {
       <Styled.Content>
         <img className="profile-img" src={photo} alt="profile" />
         <h1 className="name">{name}</h1>
-        <p className="team">{team.name}</p>
+        <p className="team">{team?.name}</p>
         <div className="count">
           <p>{rankType === 'cancel' ? '취소' : '출석'}</p>
           <span>{rank.count}</span>
