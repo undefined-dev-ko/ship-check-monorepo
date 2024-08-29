@@ -9,7 +9,7 @@ const Container = styled.div`
 
 const Icon = styled.div`
   position: absolute;
-  top: 5px;
+  top: 15px;
   left: calc(50% - 25px);
   z-index: 1;
 
@@ -32,7 +32,7 @@ const Content = styled.div`
   .profile-img {
     position: absolute;
     top: 30px;
-    left: calc(50% - 70px);
+    left: calc(50% - 72px);
     width: 140px;
     height: 140px;
     object-fit: cover;
