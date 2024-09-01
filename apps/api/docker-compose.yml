@@ -1,0 +1,12 @@
+version: "3"
+services:
+  nest_app:
+    build: .
+    container_name: nest_app
+    ports:
+      - 8080:8080
+    network_mode: host
+    deploy:
+      resources:
+        limits:
+          memory: 300M
