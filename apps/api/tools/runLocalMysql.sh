@@ -1,0 +1,1 @@
+docker run --name shipcheck -e MYSQL_ROOT_HOST=% -e MYSQL_ROOT_PASSWORD=test1234 -p 3306:3306 -d mysql:8.0.33
