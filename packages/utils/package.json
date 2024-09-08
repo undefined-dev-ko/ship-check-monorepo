@@ -1,0 +1,17 @@
+{
+  "name": "@shared/utils",
+  "version": "1.0.0",
+  "main": "dist/index.js",
+  "types": "src/index.ts",
+  "description": "shipcheck internal shared package",
+  "scripts": {
+    "dev": "tsc --watch",
+    "build": "tsc"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {},
+  "devDependencies": {
+    "typescript": "^5.5.4"
+  }
+}

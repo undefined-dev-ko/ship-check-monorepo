@@ -1,5 +1,5 @@
 {
-  "name": "ship-check-fe",
+  "name": "web",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -7,7 +7,7 @@
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
-    "@types/node": "^16.18.71",
+    "@types/node": "^20.16.5",
     "@types/react": "^18.2.48",
     "@types/react-dom": "^18.2.18",
     "@types/react-modal": "^3.16.3",
@@ -21,15 +21,18 @@
     "react-modal": "^3.16.1",
     "react-responsive": "^10.0.0",
     "react-router-dom": "^6.22.0",
-    "react-scripts": "5.0.1",
+    "react-scripts": "^5.0.1",
     "react-slick": "^0.30.2",
     "slick-carousel": "^1.8.1",
     "styled-components": "^6.1.8",
     "styled-reset": "^4.5.2",
     "typescript": "^4.9.5",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "@shared/utils": "*",
+    "@shared/types": "*"
   },
   "scripts": {
+    "dev": "react-scripts start",
     "start": "react-scripts start",
     "build": "GENERATE_SOURCEMAP=false react-scripts build",
     "test": "react-scripts test",
