@@ -6,6 +6,7 @@
   "description": "shipcheck internal shared package",
   "scripts": {
     "dev": "tsc --watch",
+    "start": "tsc",
     "build": "tsc"
   },
   "author": "",
