@@ -3,7 +3,9 @@
   "private": true,
   "scripts": {
     "build": "turbo build",
+    "build:api": "turbo build --filter=api",
     "build:web": "turbo web#build --filter=web",
+    "heroku-postbuild": "npm run build:api",
     "dev": "turbo dev",
     "dev:api": "turbo dev --filter=api",
     "dev:web": "turbo dev --filter=web",
