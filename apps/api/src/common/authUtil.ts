@@ -1,4 +1,8 @@
-import { createParamDecorator, ExecutionContext } from "@nestjs/common";
+import {
+  BadRequestException,
+  createParamDecorator,
+  ExecutionContext,
+} from "@nestjs/common";
 import { createHash, randomUUID } from "crypto";
 import * as jwt from "jsonwebtoken";
 import { Team } from "../team/team.entity";
@@ -28,7 +32,7 @@ export class AuthUtil {
       Object.assign(jwtPayload, {
         refSig: createHash("SHA-256").update(refreshToken).digest("base64"),
       }),
-      process.env.SECRET,
+      process.env.SECRET as string,
       { expiresIn: "7d" }
     );
 
@@ -59,11 +63,14 @@ export class AuthUtil {
       });
     }
 
-    return { accessToken: null, refreshToken: null };
+    throw new BadRequestException("invalid ref sig");
   }
 
   public validateAccessToken(accessToken: string): JwtPayload {
-    const verified = jwt.verify(accessToken, process.env.SECRET) as JwtPayload;
+    const verified = jwt.verify(
+      accessToken,
+      process.env.SECRET as string
+    ) as JwtPayload;
     return verified;
   }
 }
