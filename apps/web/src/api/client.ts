@@ -14,7 +14,9 @@ client.interceptors.response.use(
     if (error.response?.status === 401) {
       // originalRequest._retry = true;
 
-      const { accessToken, refreshToken } = await getNewToken();
+      const newTokenPair = await getNewToken();
+
+      const { accessToken, refreshToken } = newTokenPair || {};
 
       if (!accessToken || !refreshToken) {
         localStorage.removeItem('accessToken');
@@ -29,7 +31,7 @@ client.interceptors.response.use(
   },
 );
 
-async function getNewToken() {
+async function getNewToken(): Promise<TokenRefreshResponse | null> {
   const accessToken = localStorage.getItem('accessToken');
   const refreshToken = localStorage.getItem('refreshToken');
 

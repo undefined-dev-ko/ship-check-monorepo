@@ -3,7 +3,7 @@ import { TokenPair } from '../types';
 import { useAtom } from 'jotai';
 import { IS_LOGGED_IN } from '../states/atoms';
 
-const getToken = (): string | undefined => {
+const getToken = () => {
   return localStorage.getItem('accessToken');
 };
 

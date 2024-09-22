@@ -15,7 +15,7 @@ import {
 import useAppQuery from '../hooks/useAppQuery';
 import useAppMutation from '../hooks/useAppMutation';
 
-function useGetAllSeat(): GetAllSeatResponse {
+function useGetAllSeat() {
   const { data } = useAppQuery<GetAllSeatResponse>({
     queryKey: ['seats'],
     requestOptions: { method: 'GET', path: '/seat' },
@@ -31,11 +31,7 @@ function useGetUser({ enabled }: { enabled?: boolean }) {
   });
 }
 
-function useGetAllReservation({
-  reservedAt,
-}: {
-  reservedAt: string;
-}): GetReservationListResponse {
+function useGetAllReservation({ reservedAt }: { reservedAt: string }) {
   const { data } = useAppQuery<GetReservationListResponse>({
     queryKey: ['reservations', reservedAt],
     requestOptions: { method: 'GET', path: `/reservation/${reservedAt}` },

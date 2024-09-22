@@ -17,7 +17,7 @@ export default function AuthGoogle() {
   });
 
   useEffect(() => {
-    mutate({ authorizationCode });
+    mutate({ authorizationCode: authorizationCode ?? undefined });
   }, [authorizationCode, mutate]);
 
   return <></>;

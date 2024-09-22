@@ -56,7 +56,7 @@ function Desk({
         name={name}
         team={team ? team.name : '소속팀 없음'}
         onClickCancelButton={() => {
-          isMine && cancelReservation(seat.id);
+          isMine && seat?.id && cancelReservation(seat.id);
         }}
         isPendingCancel={isPendingCancel}
       />
@@ -74,7 +74,7 @@ function Desk({
         handleMouseOut={handleMouseOut}
         items={items}
         onReserveButtonClick={() => {
-          createReservation(seat.id);
+          seat?.id && createReservation(seat.id);
         }}
         isPendingCreate={isPendingCreate}
       />

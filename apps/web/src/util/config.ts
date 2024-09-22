@@ -10,7 +10,7 @@ const getEnv = (envName: EnvKeys, required = false): string => {
     (() => {
       throw new Error(`the environment variable '${envName}' can not be null`);
     })();
-  return result;
+  return result as string;
 };
 
 export const getBaseApiUrl = () => getEnv('REACT_APP_BASE_API_URL', true);
