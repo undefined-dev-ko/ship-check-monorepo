@@ -39,7 +39,9 @@ export class RankService {
       (a, b) => b[1] - a[1] // [userId, count] count를 기준으로 내림차순 정렬
     );
 
-    const userList = await this.dataSource.manager.find(User);
+    const userList = await this.dataSource.manager.find(User, {
+      relations: ["team"],
+    });
 
     const findUser = (userId: number) => {
       return userList.find((user) => user.id === userId);

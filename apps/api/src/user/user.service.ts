@@ -22,6 +22,7 @@ export class UserService {
   async getUser({ userId }: { userId: number }): Promise<User> {
     const result = await this.dataSource.manager.findOne(User, {
       where: { id: userId },
+      relations: ["team"],
     });
 
     if (!result) {
