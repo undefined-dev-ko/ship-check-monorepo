@@ -33,9 +33,7 @@ function Footer() {
               <div className="member-container">
                 <dt className="bold">모임장</dt>
 
-                <dd className="member">
-                  <Member {...leader} />
-                </dd>
+                <dd className="member">{leader && <Member {...leader} />}</dd>
               </div>
 
               <div className="member-container">

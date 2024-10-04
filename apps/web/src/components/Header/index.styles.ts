@@ -65,7 +65,7 @@ const ProfileImage = styled.div<{ user?: User }>`
   height: 30px;
   background-color: #fff;
   border-radius: 100%;
-  background-image: url(${({ user }) => user.photo});
+  background-image: url(${({ user }) => user?.photo});
   background-size: cover;
 
   ${media.mobile`

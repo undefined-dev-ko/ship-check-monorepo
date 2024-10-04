@@ -23,7 +23,7 @@ function EmptySeatItem({
         </Styled.ReserveSeatItem>
       ) : (
         <Styled.EmptySeatItem onClick={selectSeat}>
-          <span>{seat.deskNo}</span>
+          <span>{seat?.deskNo || ''}</span>
         </Styled.EmptySeatItem>
       )}
     </>

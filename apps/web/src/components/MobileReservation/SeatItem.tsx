@@ -39,20 +39,20 @@ function SeatItem({
           seat={seat}
           isReserveUI={isSelected}
           isPending={isPending}
-          createReservation={() => createReservation(seat?.id)}
-          selectSeat={() => handleSelectSeat(seat?.id)}
+          createReservation={() => seat?.id && createReservation(seat.id)}
+          selectSeat={() => seat?.id && handleSelectSeat(seat.id)}
         />
       )}
 
       {/* 고정 좌석 */}
       {isFixedSeat && (
         <Styled.FixedSeatItem>
-          <span className="name">{seat?.fixedUser.name}</span>
+          <span className="name">{seat?.fixedUser?.name}</span>
 
           <span className="team">
-            {seat?.fixedUser.name === '김종하'
+            {seat?.fixedUser?.name === '김종하'
               ? 'CTO'
-              : seat?.fixedUser.team.name}
+              : seat?.fixedUser?.team?.name || ''}
           </span>
         </Styled.FixedSeatItem>
       )}
@@ -65,9 +65,11 @@ function SeatItem({
           isPending={isPending}
           isMyReservation={isMyReservation}
           cancelReservation={() =>
-            isMyReservation && cancelReservation(seat?.id)
+            isMyReservation && seat?.id && cancelReservation(seat.id)
           }
-          selectSeat={() => isMyReservation && handleSelectSeat(seat?.id)}
+          selectSeat={() =>
+            isMyReservation && seat?.id && handleSelectSeat(seat.id)
+          }
         />
       )}
     </>

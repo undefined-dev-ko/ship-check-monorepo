@@ -34,7 +34,7 @@ function Calendar({
   dayNames: string[];
   weekList: DateValue[][];
 
-  onDateClick?: (clickedDate: Date) => void;
+  onDateClick: (clickedDate: Date) => void;
 }) {
   const headerTitle = `${baseDate.getFullYear()}년 ${
     baseDate.getMonth() + 1

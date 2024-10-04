@@ -11,7 +11,7 @@ function ErrorPage({
   resetErrorBoundary: () => void;
 }) {
   const navigate = useNavigate();
-  const { title, content } = getErrorMessage(error.response?.status);
+  const { title, content } = getErrorMessage(error.response?.status || 0);
 
   const handleClick = () => {
     navigate('/');

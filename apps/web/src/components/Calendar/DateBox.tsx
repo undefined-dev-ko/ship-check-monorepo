@@ -82,10 +82,10 @@ function DateBox({
         className="date"
         style={getDateStyle(
           isHovering,
-          isClicked,
-          isReserved,
-          isToday,
-          isDisabled,
+          !!isClicked,
+          !!isReserved,
+          !!isToday,
+          !!isDisabled,
         )}
       >
         {date.getDate()}

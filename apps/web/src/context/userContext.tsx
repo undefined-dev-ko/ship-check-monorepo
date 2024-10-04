@@ -5,7 +5,7 @@ interface IUserContext {
   user: User | null;
   actions: {
     storeUser: (user: User) => void;
-  };
+  } | null;
 }
 
 export const UserContext = createContext<IUserContext>({

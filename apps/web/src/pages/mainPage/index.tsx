@@ -56,7 +56,7 @@ function MainPage() {
   });
 
   const reservedDateList = reservationListForDateRange?.list
-    .filter((v) => v.userId === myself.id)
+    .filter((v) => v.userId === myself?.id)
     .map((v) => dayjs(v.reservedAt).tz('Asia/Seoul', true).toDate());
 
   return (
