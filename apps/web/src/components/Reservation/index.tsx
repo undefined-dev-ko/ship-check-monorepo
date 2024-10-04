@@ -79,7 +79,7 @@ function Reservation({
       reservations: [],
       fixedUser: {
         id: 14,
-        name: '박국환',
+        name: '기획 고정석',
         team: teamPo,
         email: '',
         photo: '',
