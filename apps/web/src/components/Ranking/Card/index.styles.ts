@@ -26,13 +26,17 @@ const Content = styled.div`
   bottom: 0;
   border-radius: 12px;
   background-color: ${COLOR.white};
-
   font-family: Poppins;
+
+  > * {
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+  }
 
   .profile-img {
     position: absolute;
     top: 30px;
-    left: calc(50% - 72px);
     width: 140px;
     height: 140px;
     object-fit: cover;
