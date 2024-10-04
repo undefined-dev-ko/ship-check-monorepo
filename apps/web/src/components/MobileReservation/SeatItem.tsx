@@ -52,7 +52,7 @@ function SeatItem({
           <span className="team">
             {seat?.fixedUser?.name === '김종하'
               ? 'CTO'
-              : seat?.fixedUser?.team?.name}
+              : seat?.fixedUser?.team?.name || ''}
           </span>
         </Styled.FixedSeatItem>
       )}
