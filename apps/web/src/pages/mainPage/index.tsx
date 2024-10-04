@@ -50,10 +50,11 @@ function MainPage() {
       enabled: isLoggedIn,
     });
 
-  const { data: rankingSummaryResponse } = useGetRankingSummary({
-    reservedMonth: dayjs(clickedDate).format('YYYY-MM'),
-    enabled: isLoggedIn,
-  });
+  const { data: rankingSummaryResponse, isPending: isPendingRanking } =
+    useGetRankingSummary({
+      reservedMonth: dayjs(clickedDate).format('YYYY-MM'),
+      enabled: isLoggedIn,
+    });
 
   const reservedDateList = reservationListForDateRange?.list
     .filter((v) => v.userId === myself?.id)
@@ -72,6 +73,7 @@ function MainPage() {
                     attendance={rankingSummaryResponse?.attendance}
                     ghost={rankingSummaryResponse?.ghost}
                     cancel={rankingSummaryResponse?.cancel}
+                    isPendingRanking={isPendingRanking}
                   />,
                   <ElmoJudgement
                     nameList={judgementsResponse?.userNames || []}
