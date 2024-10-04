@@ -1,4 +1,8 @@
-import { ForbiddenException, Injectable } from "@nestjs/common";
+import {
+  ForbiddenException,
+  Injectable,
+  InternalServerErrorException,
+} from "@nestjs/common";
 import { OAuth2Client } from "google-auth-library";
 import { AuthUtil } from "../common/authUtil";
 import { ConfigService } from "../config/config.service";
@@ -44,9 +48,13 @@ export class AuthService {
 
     const googlePayload = ticket.getPayload();
 
+    if (!googlePayload) {
+      throw new InternalServerErrorException("fail to get ticket payload");
+    }
+
     if (
       googlePayload.email !== "undefineddev2024@gmail.com" &&
-      !googlePayload.email.endsWith(SHIPDA_EMAIL_SIGNATURE)
+      !googlePayload.email?.endsWith(SHIPDA_EMAIL_SIGNATURE)
     ) {
       throw new ForbiddenException("not for your service");
     }

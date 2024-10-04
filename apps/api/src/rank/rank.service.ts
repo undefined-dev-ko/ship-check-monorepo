@@ -1,4 +1,4 @@
-import { Injectable } from "@nestjs/common";
+import { BadRequestException, Injectable } from "@nestjs/common";
 import { InjectDataSource } from "@nestjs/typeorm";
 import { DataSource, Like } from "typeorm";
 import { GetRankRequest, GetRankResponse } from "./dto";
@@ -13,7 +13,9 @@ export class RankService {
   async getRankList({
     reservedMonth,
   }: GetRankRequest): Promise<GetRankResponse> {
-    if (!reservedMonth) return;
+    if (!reservedMonth) {
+      throw new BadRequestException("reservedMonth should be presents");
+    }
 
     const reservationTotalList = await this.dataSource.manager.find(
       Reservation,
@@ -47,7 +49,7 @@ export class RankService {
       .slice(0, 3)
       .map(([userId, count], i) => ({
         id: i,
-        user: findUser(userId),
+        user: findUser(userId) as User,
         count,
       }));
 
@@ -58,7 +60,7 @@ export class RankService {
       .slice(0, 1)
       .map(([userId, count]) => ({
         id: 4,
-        user: findUser(userId),
+        user: findUser(userId) as User,
         count,
       }));
 
@@ -89,7 +91,7 @@ export class RankService {
       // 모두 출석했다면 예약횟수가 가장 적은 유저를 선정
       return {
         id: 5,
-        user: findUser(leastReservationRank[0]),
+        user: findUser(leastReservationRank[0]) as User,
         count: leastReservationRank[1],
       };
     })();

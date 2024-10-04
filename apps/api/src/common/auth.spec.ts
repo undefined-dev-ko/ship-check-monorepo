@@ -8,7 +8,8 @@ describe("AuthUtil", () => {
       const token = authUtil.createToken({
         email: "email",
         name: "name",
-        picture: "picture",
+        photo: "photo",
+        id: 0,
       });
       expect(token?.accessToken && token.accessToken.length > 10).toBeTruthy();
     });
@@ -20,14 +21,15 @@ describe("AuthUtil", () => {
       const token = authUtil.createToken({
         email: "email",
         name: "name",
-        picture: "picture",
+        photo: "photo",
+        id: 0,
       });
 
       const result = authUtil.validateAccessToken(token.accessToken);
 
       expect(result.email).toEqual("email");
       expect(result.name).toEqual("name");
-      expect(result.picture).toEqual("picture");
+      expect(result.photo).toEqual("photo");
     });
     it("토큰이 이상할 경우 검증이 실패해야한다", () => {
       const authUtil = new AuthUtil();
@@ -43,7 +45,8 @@ describe("AuthUtil", () => {
       const oldToken = authUtil.createToken({
         email: "email",
         name: "name",
-        picture: "picture",
+        photo: "photo",
+        id: 0,
       });
 
       const oldPayload = authUtil.validateAccessToken(oldToken.accessToken);
@@ -52,7 +55,7 @@ describe("AuthUtil", () => {
 
       expect(oldPayload.email === newPayload.email).toBeTruthy();
       expect(oldPayload.name === newPayload.name).toBeTruthy();
-      expect(oldPayload.picture === newPayload.picture).toBeTruthy();
+      expect(oldPayload.photo === newPayload.photo).toBeTruthy();
     });
   });
 });

@@ -12,7 +12,7 @@ export class UserService {
     return result.map((v) => ({ id: v.id, email: v.email }));
   }
 
-  async getOneUserByEmail(email: string): Promise<User> {
+  async getOneUserByEmail(email: string): Promise<User | null> {
     return await this.dataSource.manager.findOne(User, {
       relations: ["team"],
       where: { email },
