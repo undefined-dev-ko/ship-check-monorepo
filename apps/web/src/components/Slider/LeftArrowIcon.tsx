@@ -1,6 +1,10 @@
-export default function LeftArrowIcon() {
+export default function LeftArrowIcon(props: any) {
+  const { onClick } = props;
+
+  console.log(onClick);
+
   return (
-    <>
+    <div onClick={onClick}>
       <svg
         width="12"
         height="20"
@@ -29,6 +33,6 @@ export default function LeftArrowIcon() {
           strokeLinecap="round"
         />
       </svg>
-    </>
+    </div>
   );
 }

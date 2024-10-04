@@ -12,7 +12,7 @@ const Container = styled.section`
   gap: 10px;
   padding-top: 10px;
   padding-bottom: 10px;
-  border-radius: 24px;
+  border-radius: 12px;
 
   ${media.mobile`
   width: 100%;
@@ -40,17 +40,8 @@ function Notice() {
 
       <div>
         <p>
-          * FE 팀 매달 마지막 주 목요일 전체 출근 / BE 팀 매달 첫째 주 목요일
+          * FE 팀 매달 마지막 주 목요일 전체 출근 / BE 팀 매달 첫째 주 수요일
           전체 출근
-        </p>
-        <p>
-          <a
-            href="https://forms.gle/SiSxK8rj38y4btVn6"
-            target="_blank"
-            rel="noreferrer"
-          >
-            * 오픈베타(07-12~) 설문지
-          </a>
         </p>
       </div>
     </Container>

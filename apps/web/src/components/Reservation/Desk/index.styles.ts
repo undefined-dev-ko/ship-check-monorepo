@@ -7,7 +7,7 @@ const Container = styled.li<{ $isHovering?: boolean; isMine?: boolean }>`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 222.4px;
+  width: 210px;
   height: 120px;
   border-radius: 16px;
   color: ${COLOR.white};
