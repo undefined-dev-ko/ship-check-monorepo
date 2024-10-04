@@ -24,7 +24,7 @@ const Content = styled.div`
   width: 100%;
   height: 280px;
   bottom: 0;
-  border-radius: 24px;
+  border-radius: 12px;
   background-color: ${COLOR.white};
 
   font-family: Poppins;

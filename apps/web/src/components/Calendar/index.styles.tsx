@@ -8,7 +8,7 @@ const Container = styled.div`
   gap: 11px;
 
   padding: 20px;
-  border-radius: 24px;
+  border-radius: 12px;
 
   ${media.mobile`
     border-radius: 12px;

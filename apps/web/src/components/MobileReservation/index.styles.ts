@@ -12,7 +12,7 @@ const Container = styled.div`
   ${media.mobile`
    padding: 20px;
   width: 500px;
-  border-radius: 24px;
+  border-radius: 12px;
   background-color: ${COLOR.white};
   `};
 `;

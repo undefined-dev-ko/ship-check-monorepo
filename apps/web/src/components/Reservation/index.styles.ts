@@ -6,7 +6,7 @@ const Container = styled.div`
   display: flex;
   justify-content: space-between;
   background-color: ${COLOR.white};
-  border-radius: 24px;
+  border-radius: 12px;
   padding: 0;
   gap: 30px;
 
@@ -30,11 +30,11 @@ const Container = styled.div`
   }
 
   > .meeting-room {
-    border-radius: 24px 0 0 24px;
+    border-radius: 12px 0 0 12px;
   }
 
   > .wall {
-    border-radius: 0 24px 24px 0;
+    border-radius: 0 12px 12px 0;
   }
 `;
 

@@ -12,7 +12,7 @@ const Content = styled.div`
   flex-direction: column;
   align-items: center;
 
-  border-radius: 24px;
+  border-radius: 12px;
   padding: 60px;
   background-color: #fff;
 
