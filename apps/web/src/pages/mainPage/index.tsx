@@ -74,9 +74,11 @@ function MainPage() {
                     ghost={rankingSummaryResponse?.ghost}
                     cancel={rankingSummaryResponse?.cancel}
                     isPendingRanking={isPendingRanking}
+                    key="slider_1"
                   />,
                   <ElmoJudgement
                     nameList={judgementsResponse?.userNames || []}
+                    key="slider_2"
                   />,
                 ]}
               />
