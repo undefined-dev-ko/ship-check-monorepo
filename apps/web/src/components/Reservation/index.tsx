@@ -157,7 +157,7 @@ function Reservation({
           hasMadeReservation={hasMadeReservation}
           createReservation={seat ? handleCreateReservation : () => {}}
           cancelReservation={seat ? handleCancelReservation : () => {}}
-          key={i}
+          key={`${deskNo}-${i}`}
           isPendingCreate={isPendingCreate && selectedSeatId === seat?.id}
           isPendingCancel={isPendingCancel && selectedSeatId === seat?.id}
         />

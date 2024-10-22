@@ -1,4 +1,4 @@
-import axios, { AxiosRequestConfig, Method } from 'axios';
+import axios, { AxiosError, AxiosRequestConfig, Method } from 'axios';
 import { getBaseApiUrl } from '../util/config';
 import { TokenRefreshResponse } from './interfaces';
 
@@ -6,30 +6,33 @@ const client = axios.create({
   baseURL: getBaseApiUrl(),
 });
 
-client.interceptors.response.use(
-  (response) => {
-    return response;
-  },
-  async (error) => {
-    if (error.response?.status === 401) {
-      // originalRequest._retry = true;
+client.interceptors.response.use((response) => {
+  return response;
+}, axiosErrorHandler);
 
-      const newTokenPair = await getNewToken();
+async function axiosErrorHandler(error: AxiosError<unknown>) {
+  if (error.response?.status === 401) {
+    const newTokenPair = await getNewToken();
+    const { accessToken, refreshToken } = newTokenPair || {};
 
-      const { accessToken, refreshToken } = newTokenPair || {};
-
-      if (!accessToken || !refreshToken) {
-        localStorage.removeItem('accessToken');
-        localStorage.removeItem('refreshToken');
-      } else {
-        localStorage.setItem('accessToken', accessToken);
-        localStorage.setItem('refreshToken', refreshToken);
-      }
+    if (!accessToken || !refreshToken) {
+      localStorage.removeItem('accessToken');
+      localStorage.removeItem('refreshToken');
+    } else {
+      localStorage.setItem('accessToken', accessToken);
+      localStorage.setItem('refreshToken', refreshToken);
     }
 
-    return Promise.reject(error);
-  },
-);
+    // 새로운 토큰으로 재시도해서 query를 재실행 @see https://stackoverflow.com/questions/51563821/axios-interceptors-retry-original-request-and-access-original-promise
+    if (error.config) {
+      error.config.headers['Authorization'] = `Bearer ${accessToken}`;
+      error.config.baseURL = undefined;
+      return client.request(error.config);
+    }
+  }
+
+  return Promise.reject(error);
+}
 
 async function getNewToken(): Promise<TokenRefreshResponse | null> {
   const accessToken = localStorage.getItem('accessToken');
