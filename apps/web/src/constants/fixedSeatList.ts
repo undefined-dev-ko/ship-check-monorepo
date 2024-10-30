@@ -14,39 +14,13 @@ const teamPo: Team = {
 
 const fixedSeatList: Seat[] = [
   {
-    id: 8,
-    deskNo: 8,
+    id: 10,
+    deskNo: 10,
     reservations: [],
     fixedUser: {
-      id: 8,
+      id: 10,
       name: '김종하',
       team: teamDev,
-      email: '',
-      photo: '',
-      reservations: [],
-    },
-  },
-  {
-    id: 13,
-    deskNo: 13,
-    reservations: [],
-    fixedUser: {
-      id: 13,
-      name: '박상유',
-      team: teamPo,
-      email: '',
-      photo: '',
-      reservations: [],
-    },
-  },
-  {
-    id: 14,
-    deskNo: 14,
-    reservations: [],
-    fixedUser: {
-      id: 14,
-      name: '기획 고정석',
-      team: teamPo,
       email: '',
       photo: '',
       reservations: [],
@@ -58,6 +32,45 @@ const fixedSeatList: Seat[] = [
     reservations: [],
     fixedUser: {
       id: 15,
+      name: '전상훈',
+      team: teamPo,
+      email: '',
+      photo: '',
+      reservations: [],
+    },
+  },
+  {
+    id: 16,
+    deskNo: 16,
+    reservations: [],
+    fixedUser: {
+      id: 16,
+      name: '박상유',
+      team: teamPo,
+      email: '',
+      photo: '',
+      reservations: [],
+    },
+  },
+  {
+    id: 17,
+    deskNo: 17,
+    reservations: [],
+    fixedUser: {
+      id: 17,
+      name: '이승한',
+      team: teamPo,
+      email: '',
+      photo: '',
+      reservations: [],
+    },
+  },
+  {
+    id: 18,
+    deskNo: 18,
+    reservations: [],
+    fixedUser: {
+      id: 18,
       name: '성인식',
       team: teamPo,
       email: '',

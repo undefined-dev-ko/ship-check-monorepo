@@ -11,7 +11,7 @@ const Wrapper = styled.div`
 const Container = styled.div`
   ${media.mobile`
    padding: 20px;
-  width: 500px;
+  width: 600px;
   border-radius: 12px;
   background-color: ${COLOR.white};
   `};
