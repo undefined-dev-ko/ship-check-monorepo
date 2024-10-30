@@ -35,52 +35,13 @@ function Reservation({
 
   const fixedSeatList: Seat[] = [
     {
-      id: 8,
-      deskNo: 8,
+      id: 10,
+      deskNo: 10,
       reservations: [],
       fixedUser: {
-        id: 8,
+        id: 10,
         name: '김종하',
         team: teamDev,
-        email: '',
-        photo: '',
-        reservations: [],
-      },
-    },
-    {
-      id: 12,
-      deskNo: 12,
-      reservations: [],
-      fixedUser: {
-        id: 12,
-        name: '전상훈',
-        team: teamPo,
-        email: '',
-        photo: '',
-        reservations: [],
-      },
-    },
-    {
-      id: 13,
-      deskNo: 13,
-      reservations: [],
-      fixedUser: {
-        id: 13,
-        name: '박상유',
-        team: teamPo,
-        email: '',
-        photo: '',
-        reservations: [],
-      },
-    },
-    {
-      id: 14,
-      deskNo: 14,
-      reservations: [],
-      fixedUser: {
-        id: 14,
-        name: '기획 고정석',
-        team: teamPo,
         email: '',
         photo: '',
         reservations: [],
@@ -92,6 +53,45 @@ function Reservation({
       reservations: [],
       fixedUser: {
         id: 15,
+        name: '전상훈',
+        team: teamPo,
+        email: '',
+        photo: '',
+        reservations: [],
+      },
+    },
+    {
+      id: 16,
+      deskNo: 16,
+      reservations: [],
+      fixedUser: {
+        id: 16,
+        name: '박상유',
+        team: teamPo,
+        email: '',
+        photo: '',
+        reservations: [],
+      },
+    },
+    {
+      id: 17,
+      deskNo: 17,
+      reservations: [],
+      fixedUser: {
+        id: 17,
+        name: '이승한',
+        team: teamPo,
+        email: '',
+        photo: '',
+        reservations: [],
+      },
+    },
+    {
+      id: 18,
+      deskNo: 18,
+      reservations: [],
+      fixedUser: {
+        id: 18,
         name: '성인식',
         team: teamPo,
         email: '',
@@ -171,20 +171,20 @@ function Reservation({
 
       <Styled.SeatContainer>
         <Styled.SeatList>
-          {[...Array(5)]
-            .map((_, i) => i + 1) // 1 ~ 5 까지의 좌석
+          {[...Array(6)]
+            .map((_, i) => i + 1) // 1 ~ 6 까지의 좌석
             .map((deskNo, i) => renderDesk(deskNo, i))}
         </Styled.SeatList>
 
         <Styled.SeatList>
-          {[...Array(5)]
-            .map((_, i) => i + 6) // 6 ~ 10 까지의 좌석
+          {[...Array(6)]
+            .map((_, i) => i + 7) // 6 ~ 12 까지의 좌석
             .map((deskNo, i) => renderDesk(deskNo, i))}
         </Styled.SeatList>
 
         <Styled.SeatList>
-          {[...Array(5)]
-            .map((_, i) => i + 11) // 11 ~ 15 까지의 좌석
+          {[...Array(6)]
+            .map((_, i) => i + 13) // 13 ~ 18 까지의 좌석
             .map((deskNo, i) => renderDesk(deskNo, i))}
         </Styled.SeatList>
       </Styled.SeatContainer>
