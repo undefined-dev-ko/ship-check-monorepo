@@ -1,0 +1,66 @@
+name: Deploy by Container
+
+on:
+  push:
+    branches: [prod/api]
+    paths:
+      - "apps/auth-api"
+
+env:
+  ECR_REPOSITORY: ${{ secrets.ECR_REPOSITORY }}
+  ECR_REGISTRY: ${{ secrets.ECR_REGISTRY }}
+  EC2_INSTANCE_ID: ${{ secrets.EC2_INSTANCE_ID }}
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: apps/auth-api
+
+    steps:
+      - name: Checkout branch
+      - uses: actions/checkout@v4
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ap-northeast-2
+
+      - name: Login to Amazon ECR
+        uses: aws-actions/amazon-ecr-login@v2
+
+      - name: Build, tag, and push image to Amazon ECR
+        working-directory: apps/api
+        env:
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          IMAGE_TAG: ${{ github.sha }}
+        run: |
+          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+
+      - name: Create .env file
+        run: |
+          echo "ECR_REGISTRY=$ECR_REGISTRY" >> .env
+          echo "ECR_REPOSITORY=$ECR_REPOSITORY" >> .env
+
+          mkdir -p deploy
+          cp .env deploy/
+          cp appspec.yml deploy/
+          cp -r scripts deploy/
+
+          cd deploy && zip -r ../deploy.zip .
+
+      - name: Upload .env to S3
+        run: |
+          aws s3 cp deploy.zip s3://${{ secrets.S3_BUCKET }}/deploy.zip
+
+      - name: Create CodeDeploy Deployment
+        run: |
+          aws deploy create-deployment \
+            --application-name undefineddev-prod \
+            --deployment-group-name undefineddev-prod \
+            --deployment-config-name CodeDeployDefault.AllAtOnce \
+            --s3-location bucket=undefineddev-for-deploy,key=deploy.zip,bundleType=zip
