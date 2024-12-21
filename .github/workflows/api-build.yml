@@ -2,7 +2,8 @@ name: Deploy by Container
 
 on:
   push:
-    branches: [prod/api]
+    # branches: [prod/api]
+    branches: [feature/api-deploy]
     paths:
       - "apps/auth-api"
 
