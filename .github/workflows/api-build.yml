@@ -10,6 +10,10 @@ env:
   ECR_REPOSITORY: ${{ secrets.ECR_REPOSITORY }}
   ECR_REGISTRY: ${{ secrets.ECR_REGISTRY }}
   EC2_INSTANCE_ID: ${{ secrets.EC2_INSTANCE_ID }}
+  GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+  GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+  GOOGLE_REDIRECT_URL: ${{ secrets.GOOGLE_REDIRECT_URL }}
+  JWT_SECRET: ${{ secrets.JWT_SECRET }}
 
 jobs:
   deploy:
@@ -33,7 +37,7 @@ jobs:
         uses: aws-actions/amazon-ecr-login@v2
 
       - name: Build, tag, and push image to Amazon ECR
-        working-directory: apps/api
+        working-directory: apps/auth-api
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           IMAGE_TAG: ${{ github.sha }}
@@ -45,6 +49,10 @@ jobs:
         run: |
           echo "ECR_REGISTRY=$ECR_REGISTRY" >> .env
           echo "ECR_REPOSITORY=$ECR_REPOSITORY" >> .env
+          echo "GOOGLE_CLIENT_ID=$GOOGLE_CLIENT_ID" >> .env
+          echo "GOOGLE_CLIENT_SECRET=$GOOGLE_CLIENT_SECRET" >> .env
+          echo "GOOGLE_REDIRECT_URL=$GOOGLE_REDIRECT_URL" >> .env
+          echo "JWT_SECRET=$SECRET" >> .env
 
           mkdir -p deploy
           cp .env deploy/
