@@ -8,5 +8,6 @@ import { TokenService } from "./token.service";
   imports: [ConfigModule],
   controllers: [AuthController],
   providers: [AuthServiceGoogleImpl, TokenService],
+  exports: [TokenService],
 })
 export class AuthModule {}
