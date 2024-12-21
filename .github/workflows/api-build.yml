@@ -36,21 +36,15 @@ jobs:
         uses: aws-actions/amazon-ecr-login@v2
         id: login-ecr
 
-      - name: Debug ECR Login
-        run: |
-          echo "Login succeeded: ${{ steps.login-ecr.outcome == 'success' }}"
-
-      - name: Debug ECR values
-        run: |
-          echo "ECR Registry exists: ${{ secrets.ECR_REGISTRY != '' }}"
-          echo "ECR Repository exists: ${{ secrets.ECR_REPOSITORY != '' }}"
-
       - name: Build, tag, and push image to Amazon ECR
         env:
           IMAGE_TAG: ${{ github.sha }}
         run: |
-          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG -f apps/auth-api/Dockerfile .
-          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+          AWS_ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text)
+          ECR_URI="${AWS_ACCOUNT_ID}.dkr.ecr.ap-northeast-2.amazonaws.com/${ECR_REPOSITORY}"
+
+          docker build -t ${ECR_URI}:${IMAGE_TAG} -f apps/auth-api/Dockerfile .
+          docker push ${ECR_URI}:${IMAGE_TAG}
 
       - name: Create .env file
         run: |
