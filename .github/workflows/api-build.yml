@@ -2,9 +2,10 @@ name: Deploy by Container
 
 on:
   push:
-    branches: [prod/api]
-    paths:
-      - "apps/auth-api"
+    # branches: [prod/api]
+    branches: deploy-test
+    # paths:
+    # - "apps/auth-api"
 
 env:
   ECR_REPOSITORY: ${{ secrets.ECR_REPOSITORY }}
