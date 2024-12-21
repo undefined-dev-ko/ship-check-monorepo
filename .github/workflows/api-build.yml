@@ -46,7 +46,7 @@ jobs:
           docker build -t ${ECR_URI}:${IMAGE_TAG} -f apps/auth-api/Dockerfile .
           docker push ${ECR_URI}:${IMAGE_TAG}
 
-      - name: Create .env file
+      - name: Create .env and prepare deploy package
         run: |
           echo "ECR_REGISTRY=$ECR_REGISTRY" >> .env
           echo "ECR_REPOSITORY=$ECR_REPOSITORY" >> .env
@@ -56,13 +56,12 @@ jobs:
           echo "JWT_SECRET=$SECRET" >> .env
 
           mkdir -p deploy
-          cp .env deploy/
-          cp appspec.yml deploy/
-          cp -r scripts deploy/
+          cp apps/auth-api/appspec.yml deploy/
+          cp -r apps/auth-api/scripts deploy/
 
           cd deploy && zip -r ../deploy.zip .
 
-      - name: Upload .env to S3
+      - name: Upload .env and deploy package to S3
         run: |
           aws s3 cp deploy.zip s3://${{ secrets.S3_BUCKET }}/deploy.zip
 
