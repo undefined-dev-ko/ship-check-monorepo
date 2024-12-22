@@ -48,20 +48,21 @@ jobs:
 
       - name: Create .env and prepare deploy package
         run: |
-          echo "ECR_REGISTRY=$ECR_REGISTRY" >> .env
-          echo "ECR_REPOSITORY=$ECR_REPOSITORY" >> .env
-          echo "GOOGLE_CLIENT_ID=$GOOGLE_CLIENT_ID" >> .env
-          echo "GOOGLE_CLIENT_SECRET=$GOOGLE_CLIENT_SECRET" >> .env
-          echo "GOOGLE_REDIRECT_URL=$GOOGLE_REDIRECT_URL" >> .env
-          echo "JWT_SECRET=$SECRET" >> .env
-
           mkdir -p deploy
+
+          echo "ECR_REGISTRY=$ECR_REGISTRY" >> deploy/.env
+          echo "ECR_REPOSITORY=$ECR_REPOSITORY" >> deploy/.env
+          echo "GOOGLE_CLIENT_ID=$GOOGLE_CLIENT_ID" >> deploy/.env
+          echo "GOOGLE_CLIENT_SECRET=$GOOGLE_CLIENT_SECRET" >> deploy/.env
+          echo "GOOGLE_REDIRECT_URL=$GOOGLE_REDIRECT_URL" >> deploy/.env
+          echo "JWT_SECRET=$SECRET" >> deploy/.env
+
           cp apps/auth-api/appspec.yml deploy/
           cp -r apps/auth-api/scripts deploy/
 
           cd deploy && zip -r ../deploy.zip .
 
-      - name: Upload .env and deploy package to S3
+      - name: Upload deploy package to S3
         run: |
           aws s3 cp deploy.zip s3://${{ secrets.S3_BUCKET }}/deploy.zip
 
